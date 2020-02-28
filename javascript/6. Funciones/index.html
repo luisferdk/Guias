@@ -1,0 +1,37 @@
+<script>
+  /* Funciones */
+  // Con Parametros o Sin Parametros
+  // Vacia o Retorna
+
+  function mostrarNombre() { //Vacia y Sin Parametros
+    console.log('Soy Luis');
+  }
+  mostrarNombre();
+
+
+
+  function mostrarNombreApellido(nombre, apellido) { // Vacia con Parametros
+    console.log(`El Nombre es ${nombre} y el Apellido es ${apellido}`);
+  }
+  mostrarNombreApellido('Luis', 'Fernandez');
+
+
+
+  function enviarPi() { //Retorna sin Parametros;
+    console.log("Estoy retornando PI");
+    return 3.1416;
+  }
+
+  const pi = enviarPi();
+
+
+
+
+  function suma(num1, num2) { //Retorna con parametros
+    let total = num1 + num2;
+    return total;
+  }
+
+  const resultado = suma(3, 6);
+  console.log(resultado);
+</script>
