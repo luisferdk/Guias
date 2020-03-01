@@ -1,1182 +1,390 @@
-Guia de **MongoDB** _Usos y comandos_
-=======================
-INDICE 
-------
-+ [Como empezar](#Como-empezar) 
-    + [Iniciar servidor - **mongod | mongo**](#Iniciar-servidor)
-        + [Cofigurar teminal](#Configurar-MongoDB-y-CMD)
-    + [Comandos basicos](#Comandos-basicos)
-        + [Mostrar DBs - **show dbs**](#Mostrar-las-Bases-de-Datos)
-        + [Crear DB - **use {db}**](#Crear-DB)
-        + [Mostrar DBs en uso- **db**](#Mostrar-Base-de-Datos-en-uso)
-        + [Crear Coleccion (Implicito) - **.insert( )**](#Crear-coleccion-de-manera-implicita-/-Insertar-datos-en-Coleccion)
-        + [Crear Coleccion (Explicito) - **createCollection( )**](#Crear-coleccion-de-manera-explicita)
-        + [Mostrar Colecciones - **show collections**](#Mostrar-Colecciones)
-        + [Eliminar Coleccion - **.drop( )**](#Eliminar-coleccion)
-        + [Eliminar DB - **.dropDatabase( )**](#Eliminar-DB)
-+ [CRUD](#crud)
-    + [Crear](#Crear)
-        + [Un documento - **.insert( )**](#Un-documento)
-        + [Varios documentos - **.insert( )**](#Varios-documentos)
-        + [Arreglos - **.insert( )**](#Arreglos)
-    + [Mostrar](#Mostrar)
-        + [Todos - **.find( )**](#Todos)
-        + [Solo uno - **.findOne( )**](#Solo-uno)
-        + [Parametro de busqueda - **.find( _{ }_ )**](#parametro-de-busqueda)
-        + [Filtro de campos - **.find( { }, _{ }_ )**](#Filtro-de-campos)
-        + [*Cursores* - **.find( )**](#cursores)
-            + [Formato - **.pretty( )**](#Formato)
-            + [forEach - **.forEach( )**](#forEach)
-            + [count - **.count( )**](#count)
-            + [sort - **.sort( )**](#sort)
-            + [limit - **.limit( )**](#limit)
-            + [skip - **.skip( )**](#skip)
-            + [count vs size **.size( )**](#count-vs-size)
-        + [Arreglos](#Arreglos---find)
-            + [slice - **.find( { }, _{ }_ )**](#slice)
-            + [in - **.find( _{ }_, { } )**](#in)
-    + [Actualizar](#Actualizar)
-        + [save - **.save( )**](#save)
-        + [update - **.update( )**](#update)
-        + [Arreglos - **.update( { }, _{ }_ )**](#Arreglos)
-            + [Agregar - **$push: _{ }_**](#Agregar---update)
-                + [push - **$push: _{ }_**](#push) 
-                + [each - **$each: [ ]**](#each)
-                + [position - **$position**](#position)
-                + [sort - **$sort**](#sort)
-            + [Eliminar](#Eliminar---update-(arreglos))
-                + [pull - **$pull: {}**](#pull)
-    + [Eliminar](#Eliminar)
-        + [remove - **.remove( )**](#remove)
-+ [Funciones](#Funciones) 
-    + [Varibles](#Variables)
-    + [Operadores](#Operadores)
-        + [Comparacion](#Comparacion)
-        + [Logicos](#Logicos)
-    + [Bucles](#Bucles)
-        + [for](#for)
-+ [Avanzado](#Avanzado)
-    + [Grupos - **aggregate( _[ ]_ )**](#Group)
-        + [Agrupacion - **$group _{ }_**](#Agrupacion)
-        + [Repeticion de grupos - **$sum : 1**](#Repeticion-de-grupos)
-        + [Suma de campos - **$sum:_{ }_**](#suma-de-campos-por-grupo)
-        + [promedio - **$avg: _{ }_**](#Promedio-de-grupos)
-+ [Expresiones regulares - **.find ( _{ }_ )**](#Expresiones-regulares)
-    + [Like - ***/ /***](#'Like')
-        + [Cualquier zona - ***/ /***](#Cualquier-zona)
-        + [Al final - **/  _$_/**](#Al-final)
-        + [Al inicio - **/_^_ /**](#Al-inicio)
-
-___
-<br><br><br>
-
-# Como empezar
-## Iniciar servidor
-
-Para iniciar el servidor primero es necesario una serie de pasos para poder usar los comandos de MongoDB
-
-### **Configurar MongoDB y CMD**
-1. Configurar MongoDb para su uso 
-    1. Ir a la unidad ***c:***
-    1. crear carpetas: ***data/db***
-1. Configurar el cmd para usar comandos de MondoDB
-    1. Copiar la ruta bin en la carpeta de instalacion de MongoDB
-        + Default ***C:\Program Files\MongoDB\Server\4.0\bin***
-    1. Seguir la ruta ***panel de control > Sistema y seguridad > Sistema***
-    1. Entrar a ***Configuracion Avanzada del Sistema***
-        1. ***Variables de Entorno > Nuevo***
-        1. *Nombre:* **MongoDB** | *Valor:* ***Ruta de carpeta bin***
-
-Si todo salio bien ya puedes acceder a los comandos de MongoDb desde el CMD
-
-<br><br>
-
-### **Arrancar el servidor**
-###### *shell*
-```javascript
-mongod
-```
-```javascript
-2019-06-15T13:19:01.725-0500 I NETWORK  [initandlisten] waiting for connections on port 27017
-```
-Esto significa que el servidor ya esta activo
-
-<br>
-
-Para ingresar los comandos se necesita abir otra terminal de comandos ya que esta esta ocupada con el servidor
-
-Para ingresar todos los comandos tenemos que activar los comandos de MongoDB
-
-###### *shell*
-```javascript
-mongo
-```
-Con esto ya podemos empezar a ingresar comandos
-
-<br><br><br><br>
-
-## Comandos basicos
-### **Mostrar las Bases de Datos**
-###### *shell*
-``` javascript
-> show dbs
-```
-``` javascript
-admin   0.000GB
-config  0.000GB
-local   0.000GB
-```
-<br><br>
-
-### **Crear DB**
-###### *shell*
-```javasript
-> use Pruebas
-```
-```javasript
-switched to db Pruebas
-```
-___
-###### ***Nota 1***
-    Si la DB no existe entonces se va ha crear, pero esta no aparecera en la lista de DB hasta que se carguen datos en esta
-___
-
-<br><br>
-
-### **Mostrar Base de Datos en uso**
-###### *shell*
-```javascript
-> db
-```
-```javascript
-Pruebas
-```
-
-<br><br>
-
-### **Crear Coleccion de manera implicita / Insertar datos en Coleccion**
-
-*db*.__coleccion__.*insert*( { **documento** })
-
-*db.*__nombreColeccion__.*insert([{* **documento1** _}, {_ **documento2** _},_ **...**_])_
-
-###### *shell*
-```javascript
-> db.persona.insert({
-... "nombre": "Alan",
-... "apellido": "Vazquez",
-... })
-```
-```javascript
-WriteResult({ "nInserted" : 1 }) 
-```
-___
-###### ***Nota 1***
-    Se pueden insertar varias lineas en la terminal mientras no se cierren los parentesis de la funcion
-###### ***Nota 2***
-    En caso de que no exista la Coleccion en la que se quieren insertar datos se crea la Coleccion
-___
-
-<br><br>
-
-### **Crear Coleccion de manera explicita**
-_db.createCollection("_**nombreColeccion**_")_
-###### *shell*
-```javascript
-> db.createCollection("productos")
-```
-```javascript
-{ "ok" : 1 }
-```
-
-<br><br>
-
-### **Mostrar Colecciones**
-###### *shell*
-```javascript
-> show collections
-```
-```javascript
-persona
-productos
-```
-
-<br><br>
+# Tabla de orientacion para entrar al mundo de MongoDB
+SQL o Relacional  | MongoDB
+------------- | -------------
+Base de Datos  | Base de Datos
+Tabla  | Collection / Coleccion
+"Registro" / Row  | Document / Documento
+Join  | Lookup
+Foreign Key  | Reference / Referencia
+ Multi-table transaction  | Single Document Transaction
  
-### **Eliminar Coleccion**
-_db._**nombreColeccion**_.drop()_
-###### *shell*
-```javascript
-> db.productos.drop()
-```
-```javascript
-true
-```
+# Comandos para la terminal
 
-<br><br>
+	$:mongod (Inicializa MongoDB)
+	$:mongo (abre el Shell para trabajar con MongoDB)
+
+
+## Comandos de MonoDB
+
+Crear una Colecion ( Una BD )
+	
+	 mongo NombreDeLaBaseDeDatos
+	
+### Ejemplo
+	
+	 mongo ejemplo 
+
+Para ver la Base de Datos con la que se esta trabajando
+	
+	 db
+
+Para mostrar todas las Base de Datos
+	
+	 show dbs
+
+Para seleccionar la Base de Datos con la que deseamos trabajar
+
+	 use NombreDeLaBaseDeDatos
+	 
+Para saber la cantidad de documentos que contiene la coleccion
+
+    db.NombreDeLaBaseDeDatos.count()
+	
+### Ejemplo
+	
+	 use ejemplo	
+
+# Insert
+
+Para insertar datos en MongoDB se utiliza una estructura de tipo JSON como podras ver a continuacion:
+
+#### Estructura
+
+    var variable = { 
+        "nombre" : "Eric", "apellido" : "Avila", "edad" : "27"  
+        }
+    
+> Nota : Una manera que en lo personal me gusto es la de declarar una variable que contenga la `consulta`(por decirlo de alguna manera) y despues agregarla al `metodo` al cual usaremos.
+
+#### Una vez guardada, la ingresamos en el `"metodo"`. 
+
+> Recuerda que estamos utilizando la Base de Datos llamada : **`ejemplo`**
  
-### **Eliminar DB**
-###### *shell*
-```javascript
-> db.dropDatabase()
-```
-```javascript
-{ "dropped" : "Pruebas", "ok" : 1 }
-```
-
-<br><br><br><br><br><br><br><br>
- 
-# CRUD
-## Crear 
-### **Un documento**
-_db._**nomreColeccion**_.insert({_ **nombreValor** _:_ **valor**_,_ **...**_})_
-###### *shell*
-```javascript
-> db.persona.insert({ nombre: "Alan", edad: 20 })
-```
-```javascript
-WriteResult({ "nInserted" : 1 })
-```
-___
-###### ***Nota 1***
-    Se pueden omitir las comillas en los nombres de los campos.
-
-###### ***Nota 2***
-    MongoDB inserta un id por defaul cuando este se omite
-        "_id": ObjectId("<<Hash>>")
-    En caso de que se tenga un id personalizado para el documento es preferible usar el del documento.
-    se tiene que especificar como {"_id": <<Valor_Unico>>}
-###### ***Nota 3***
-    Se pueden insertar diferentes campos en la misma coleccion
-        Cada documento puede tener sus propios campos distintos sin necesidad de alterar a los demas, como en caso de SQL
-___
-
-<br><br>
- 
-### **Varios documentos**
-_db._**nombreColeccion**_.insert ( [ {_ 
-**documento1**_},_
-_{_ **documento2** _},_ 
-_{_ **...** _} ] )_
-###### *shell*
-```javascript
-> db.persona.insert([
-... {
-... nombre: "Isaac",
-... edad: 20,
-... activo: true
-... },
-... {nombre: "Fernanda",
-... edad: 21
-... }])
-```
-```javascript
-BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 2,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
-        "upserted" : [ ]
-})
-```
-
-<br><br>
-### **Arreglos - update**
-_db._**nombreColeccion**_.insert ( {_
-**nombreArreglo** _: [_ **valor1, valor2, ...** _] } )_
-###### *shell*
-```javascript
-> db.prueba.insert([
-... {nombre: "test 1", miArreglo: [1, 5, 7, 9] },
-... {nombre: "test 2", miArreglo: [8, 4, 3] }
-... ] )
-```
-```javascript
-BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 2,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
-        "upserted" : [ ]
-})
-```
-
-
-<br><br><br><br>
-
-## Mostrar
-### **Todos**
-_db._**nombreColeccion**_.find()_
-###### *shell*
-```javascript
-> db.persona.find()
-```
-```javascript
-{ "_id" : ObjectId("5d057016581553215508f3bc"), "nombre" : "Alan", "edad" : 20 }
-{ "_id" : ObjectId("5d057354581553215508f3bd"), "nombre" : "Isaac", "edad" : 20, "activo" : true }
-{ "_id" : ObjectId("5d057354581553215508f3be"), "nombre" : "Fernanda", "edad" : 21 }
-```
-
-<br><br>
-
-### **Solo uno**
-_db._**nombreColeccion**_.findOne()_
-###### *shell*
-```javascript
-> db.persona.findOne()
-```
-```javascript
-{
-        "_id" : ObjectId("5d057016581553215508f3bc"),
-        "nombre" : "Alan",
-        "edad" : 20
-}
-```
-
-<br><br>
-
-### **Parametro de busqueda**
-###### *shell*
-_db._**nombreColeccion**_.find( {_ **parametrosBusqueda** _} )_
-
-```javascript
-> db.persona.find({edad:20})
-```
-```javascript
-{ "_id" : ObjectId("5d057016581553215508f3bc"), "nombre" : "Alan", "edad" : 20 }
-{ "_id" : ObjectId("5d057354581553215508f3bd"), "nombre" : "Isaac", "edad" : 20, "activo" : true }
-```
-
-###### ***Nota 1***
-    Se pueden insertar los parametros que se desee dentro de los mismo corchetes separando por ","
-
-<br><br>
- 
-### **Filtro de campos**
-_db._**nombreColeccion**_.find(_
-_{_ **parametrosBusqueda** _},_ 
-_{_ **campo1** _:_ **1**_,_ **campo2** _:_ **0**_,_ **...** _} )_
-
-
-_Se especifica un **0** o **false** para excluir el valor_
-
-_Se especifica un **1** o **true** para mostrar el valor_
-
-###### *shell*
-```javascript
-> db.persona.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "Alan", "edad" : 20 }
-{ "nombre" : "Isaac", "edad" : 20, "activo" : true }
-{ "nombre" : "Fernanda", "edad" : 21 }
-```
-###### *shell*
-```javascript
-> db.persona.find({}, {nombre:1})
-```
-```javascript
-{ "_id" : ObjectId("5d057016581553215508f3bc"), "nombre" : "Alan" }
-{ "_id" : ObjectId("5d057354581553215508f3bd"), "nombre" : "Isaac" }
-{ "_id" : ObjectId("5d057354581553215508f3be"), "nombre" : "Fernanda" }
-```
-___
-###### ***Nota 1*** 
-    El _id siempre se mostrara al menos que se excluya manualmente
-___
-
-<br><br>
-
-### **Cursores**
-#### **Formato**
-_db._**nombreColeccion**_.find().pretty()_
-###### *shell*
-```javascript
-> db.persona.find().pretty()
-```
-```javascript
-{
-        "_id" : ObjectId("5d057016581553215508f3bc"),
-        "nombre" : "Alan",
-        "edad" : 20
-}
-{
-        "_id" : ObjectId("5d057354581553215508f3bd"),
-        "nombre" : "Isaac",
-        "edad" : 20,
-        "activo" : true
-}
-{
-        "_id" : ObjectId("5d057354581553215508f3be"),
-        "nombre" : "Fernanda",
-        "edad" : 21
-}
-```
-
-<br><br>
-
-#### **forEach** 
-_db._**nombreColeccion**_.find.().forEach(_
-**bloqueDeFunciones**
-_)_
-
-    Recorre la lista de documentos de una coleccion
-
-###### *shell*
-```javascript
-> db.cicloFor.find().forEach(
-... function(d){ print( d.valor ) }
-... )
-```
-```javascript
-0                     
-1
-2
-3
-...
-100
-```
-
-<br>
-
-#### **count** 
-_db._**nombreColeccion**_.find.().count()_
-###### *shell*
-```javascript
-> db.cicloFor.find().count()
-```
-```javascript
-101
-```
-
-<br>
-
-#### **sort** 
-_db._**nombreColeccion**_.find.().sort(_ 
-_{_ **campoOrdenar** _:_ **[1/-1]** _} )_
-###### *shell*
-```javascript
-> db.orden.insert([
-... {valor: "f"},
-... {valor: "c"},
-... {valor: "a"},
-... {valor: "ab"},
-... {valor: "aa"}
-... ])
-```
-```javascript
-BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 5,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
-        "upserted" : [ ]
-})
-```
-###### *shell*
-```javascript
-> db.orden.find({},{_id: 0}).sort({valor:1})
-```
-```javascript
-{ "valor" : "a" }
-{ "valor" : "aa" }
-{ "valor" : "ab" }
-{ "valor" : "c" }
-{ "valor" : "f" }
-```
-###### *shell*
-```javascript
-> db.orden.find({},{_id: 0}).sort({valor:-1})
-```
-```javascript
-{ "valor" : "f" }
-{ "valor" : "c" }
-{ "valor" : "ab" }
-{ "valor" : "aa" }
-{ "valor" : "a" }
-```
-___
-###### ***Nota 1***
-    Indicar el valor en el campo segun el orden deseado:
-         1 = ascendente
-        -1 = descendente 
-___
-
-<br>
-
-#### **limit**
-_db._**nombreColeccion**_.find.().limit(_ **numeroValoresMostrar** _)_
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:0}).limit(5)
-```
-```javascript
-{ "valor" : 1 }
-{ "valor" : 2 }
-{ "valor" : 3 }
-{ "valor" : 4 }
-{ "valor" : 5 }
-```
-
-<br>
-
-#### **skip**
-_db._**nombreColeccion**_.find.().skip(_ **numeroValoresOmitir** _)_
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:0}).skip(10).limit(5)
-```
-```javascript
-{ "valor" : 11 }
-{ "valor" : 12 }
-{ "valor" : 13 }
-{ "valor" : 14 }
-{ "valor" : 15 }
-```
-
-<br>
-
-#### **count vs size**
-_db._**nombreColeccion**_.find.( ).skip(_ **numeroValoresOmitidos** _).size( )_
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:0}).sort({valor:1}).skip(10).size()
-```
-```javascript
-90
-```
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:0}).skip(10).count()
-```
-```javascript
-100
-```
-###### ***Nota 1***
-    count: Devuelve el numero total de documentos encontrados dentro el metodo find()
-    size: Devuelve el numero de documentos restantes dentro del skip [size = count - skip]
-
-<br><br>
-
-### **Arreglos - find**
-#### **slice** 
-_db._**nombreColeccion**_find( { },_
-_{_ **nombreArreglo** _:_ _{$slice :_ **numeroElementos** _} } )_ 
-
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:false}).pretty()
-```
-```javascript
-{
-        "miArreglo" : [
-                "C#",
-                "JavaScript",
-                "Python",
-                "Visual Basic",
-                "Java"
-        ]
-}
-```
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:false, miArreglo: {$slice: 3}})
-```
-```javascript
-{ "miArreglo" : [ "C#", "JavaScript", "Python" ] }
-```
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:false, miArreglo: {$slice: -3}})
-```
-```javascript
-{ "miArreglo" : [ "Python", "Visual Basic", "Java" ] }
-```
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:false, miArreglo: {$slice: [1, 3]}})
-```
-```javascript
-{ "miArreglo" : [ "JavaScript", "Python", "Visual Basic" ] }
-```
-
-<br><br>
-
-#### **in** 
-_db._**nombreColeccion**_.find(_
-_{ **nombreArreglo** _: { $in : [_ **valoresBusqueda** _] } )_ 
-
-Para negra la busqueda, excluir las concidencias usar:
-    $nin
-
-###### *shell*
-```javascript
-> db.prueba.find({},{_id:false}).pretty()
-```
-```javascript
-{
-        "miArreglo" : [
-                "C#",
-                "JavaScript",
-                "Python",
-                "Visual Basic",
-                "Java"
-        ]
-}
-```
-###### *shell*
-```javascript
-> db.prueba.find({miArreglo: {$in: ["C#", "SQL"]} }, {_id: false} )
-```
-```javascript
-{ "miArreglo" : [ "C#", "JavaScript", "Python", "Visual Basic", "Java" ] }
-```
-
-###### ***Nota 1***
-    Solo es necesario una concidencia de todos los parametros de busqueda para que este retorne el documento
-
-<br><br><br><br>
-
-## Actualizar
-### **Save**
-_db._**nombreColeccion**_.save(_
-_{_ **_id o documento**  _},_ 
-_{_ **campoNombre** _:_ **nuevoValor** _} )_
-
-###### *shell* 
-```javascript
-> db.persona.save( { "_id" : ObjectId("5d057016581553215508f3bc") }, { edad : 30 })
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-___
-###### ***Nota 1***
-    Se debe indicar el campo "_id" porque sino se va ha crear un nuevo documento.
-    No basta con que los campos de busqueda sean unicos
-###### ***Nota 2***
-    En caso de que el campo ha actualizar no exista este se va ha agregar
-___
-
-<br><br>
-
-### **Update**
-_db._**nombreColeccion**_.update(_ 
-
-_{_ **valoresBusqueda** _},_
-
-_{_ ***$set :*** **{ valoresModificar**_,_ **ValoresCrear },** 
-    ***$unset :*** **{campoEliminar : valorEliminar}** _},_
-
-_{  multi:_ **boolean** _} )_
-
-    $set: Establece que solo es campo se va ha modificar o crear. 
-    Sino se coloca esta expresion se tendra que ingresar el documento completo
-
-    $unset: Elimina los campos que concidan con el valor indicado
-
-    multi: Inidica que se van ha modificar todos los documentos que concidan con los campos de la busqueda en caso de que su valor sea "true".
-    Sino se especifica el valor por default es "false" por lo que solo se modificara el primer documento que se encuentre
-
-###### *shell*
-```javascript
-> db.persona.update({nombre: "Fernanda"}, {edad: 23, activo: true})
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-
-<br><br>
-
-### **Arreglos**
-#### **Agregar - update**
-##### **push**
-_db._**nombreColeccion**_.update(_ 
-
-_{_ **valoresBusqueda** _},_
-
-_{ $push : {_ **valoresAñadir** _} )_
-
-<br>
-
-_db._**nombreColeccion**_.update( { },_
-
-_{_ _$addToSet : {_ **valoresAñadir** _} )_
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test , "miArreglo" : [ 8, 4, 3] }
-```
-###### *shell*
-```javascript
-> db.prueba.update( {}, {$addToSet: {miArreglo: 2} })
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 4, 3, 2] }
-```
-
-<br>
-
-###### *shell*
-```javascript
-> db.prueba.update( {}, {$addToSet: {miArreglo: [6, 0]} })
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 4, 3, 2, [ 6, 0 ] ] }
-```
-
-###### ***Nota 1***
-    Si el elemento ya existe dentro del Array este ya no se volvera ha agregar.
-    $push: permite agregar elementos existentes en el array
-
-<br><br>
-
-##### **each**
-_db._**nombreColeccion**_.update( { },_
-_{ $push : {_ **nombreArreglo** _:_
-_{ $each : [_ **valor1, valor2, ...**  _]_
-_} )_
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 4, 3 ] }
-```
-###### *shell*
-```javascript
-> db.prueba.update( {},
-... {$push: { miArreglo :
-... {$each: [2, 3, 6] }
-... } } )
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 4, 3, 2, 3, 6 ] }
-```
-
-###### ***Nota 1***
-    En lugar de usar $push tambien se peuede utilizar $addToSet
-
-<br><br>
-##### **position**
-_db._**nombreColeccion**_.update( { },_
-_{ $push : {_ **nombreArreglo** _:_
-_{ $position :_ **indiceArreglo**
-_} )_
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 4, 3 ] }
-```
-###### *shell*
-```javascript
-> db.prueba.update( {},
-... {$push: { miArreglo :
-... {$each: [2, 3, 6], $position: 1}
-... } } )
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 2, 3, 6, 4, 3 ] }
-```
-
-###### ***Nota 1***
-    El metodo $position solo esta disponible con $push
-
-<br><br>
-##### **sort**
-_db._**nombreColeccion**_.update( { },_
-_{ $push : {_ **nombreArreglo** _:_
-_{ $sort :_ **[1/-1]**
-_} )_
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 8, 4, 3 ] }
-```
-###### *shell*
-```javascript
-> db.prueba.update( {},
-... {$push: { miArreglo :
-... {$each: [2, 3, 6], $sort: 1}
-... } } )
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 2, 3, 3, 4, 6, 8 ] }
-```
-
-###### ***Nota 1***
-    Este metodo se puede usar para ordenar el arreglo sino se le pasa ningun valor
-
-<br><br>
-
-#### **Eliminar - update (arreglos)**
-##### **pull** 
-_db._**nombreColeccion**_.update( { },_
-_{ $pull : {_ **nombreArreglo** _:_ **valorArreglo** _)_
-
-_db._**nombreColeccion**_.update( { },_
-_{ $pullAll : {_ **nombreArreglo** _: [_ **valor1, valor2, ...** _] )_
-###### *shell*
-```javascript
-> var arreglo = new Array();
-> var tamanoArray = 20;
-> for (i = 1; i <= tamanoArray; i++){
-...     arreglo.push(Math.round(Math.random()*100));
-... }
-> db.prueba.insert({nombre: "test 1", miArreglo: arreglo} )
-```
-```javascript
-WriteResult({ "nInserted" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find()
-```
-```javascript
-{ "_id" : ObjectId("5d08006569eac3f57c534494"), "nombre" : "test 1", "miArreglo" : [ 36, 80, 47, 14, 9 ] }
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "_id" : ObjectId("5d0801d069eac3f57c534495"), "nombre" : "test 1", "miArreglo" : [ 36, 80, 47, 14, 9, 69, 92, 21, 22, 65, 4, 36, 9, 22, 34, 23, 59, 97, 33, 92 ] }
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id:0})
-```
-```javascript
-{ "_id" : ObjectId("5d0801d069eac3f57c534495"), "nombre" : "test 1", "miArreglo" : [ 36, 80, 47, 14, 9, 69, 92, 21, 22, 65, 4, 36, 9, 22, 34, 23, 59, 97, 33, 92 ] }
-```
-###### *shell*
-```javascript
-> db.prueba.update({}, {$pull: {miArreglo: {$gte: 50} } } )
-```
-```javascript
-WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
-```
-###### *shell*
-```javascript
-> db.prueba.find({}, {_id: 0} )
-```
-```javascript
-{ "nombre" : "test 1", "miArreglo" : [ 36, 47, 14, 9, 21, 22, 4, 36, 9, 22, 34, 23, 33 ] }
-```
-
-###### ***Nota 1***
-    Para eliminar varios valores manualmente se utiliza:
-    $pullAll: [valor1, valor2, ...]
-
-<br><br>
-
-
-
-
-<br><br><br><br>
-
-## Eliminar
-### **Remove**
-
-_db._**nombreColeccion**_.remove( {_ **camposBusqueda** _} )_
-
-    A diferencia de la funcion update() la funcion remove() elimina todos los documentos que concidan con sus parametros de busqueda
-###### *shell*
-```javascript
-> db.persona.remove({ "_id" : ObjectId("5d057016581553215508f3bc") })
-```
-```javascript
-WriteResult({ "nRemoved" : 1 })
-```
-
-<br><br><br><br><br><br><br><br>
-
-# Funciones
-## Variables
-_var_ **nombreVariable** _=_ **script, funcion, documento, etc**
-
-_Se puede asgnar un script a una variable y usarla cuando sea oportuno, como una funcion de una buqueda en especifico_
-
-#### *shell* 
-```javascript
-> var test = db.persona.findOne({nombre: "Alan"})
-``` 
-#### *shell* 
-```javascript
-> test
-```
-```javascript
-{
-        "_id" : ObjectId("5d057016581553215508f3bc"),
-        "nombre" : "Alan",
-        "edad" : 20
-}
-```
-#### *shell* 
-```javascript
-> test.edad
-```
-```javascript
-20
-```
-___
-#### ***Nota 1***
-    Se puede especificar el .edad debido a que hace uso de la funcion findOne().
-    Gracias a eso se puede acceder a los campos del resultado de la busqueda
-    Igualmente si se accede a un atributo que no existe este se crea
-___
-
-<br><br><br><br>
-
-## Operadores
-### **Comparacion**
-+ **$gt**  *>*  (greater than)
-+ **$gte** *>=* (greater than equals)
-+ **$lt**  *<*  (less than)
-+ **$lte** *<=* (less than equals)
-###### *shell*
-```javascript
-> db.persona.find({edad: {$gt: 20}}, {_id: 0})
-```
-```javascript
-{ "nombre" : "Fernanda", "edad" : 21 }
-```
-
-<br>
-
-### **Logicos**
-+ **$ne** *!=* (Negacion/diferente)
-
-###### *shell*
-```javascript
-> db.persona.find({nombre: {$ne: "Alan"}}, {_id: 0, nombre: 1})
-```
-```javascript
-{ "nombre" : "Isaac" }
-{ "nombre" : "Fernanda" }
-```
-
-
-
-
-<br><br><br><br>
-
-## Bucles
-### **for** 
-_for(_ **varContador** _;_ **limiteCiclo** _;_ **aumento/decremento**_) {_ **funciones** _}_
-
-###### *shell*
-```javascript
-> for(i = 0; i <= 100; i++){
-... db.cicloFor.insert({valor: i})
-... }
-```
-```javascript
-WriteResult({ "nInserted" : 1 })
-```
-
-Esto inserta valores del 0 al 100 en la coleccion **cicloFor**
-
-<br><br><br><br><br><br><br><br>
-
-
-# Avanzado
-## aggregate
-### **group**
-#### **Agrupacion**
-_db._**nombreColeccion**_.aggregate( [ {_
-    _$group : "_ **nombreCampoAgrupar** _"} ] )_
-
-###### *shell* 
-```javascript
-> db.peliculas.insert([
-... {categoria: "accion", nombre: "2 Guns", valor: 100},
-... {categoria: "accion", nombre: "Ant-Man", valor: 50},
-... {categoria: "accion", nombre: "Avatar 3", valor: 150},
-... {categoria: "Ciencia Ficcion", nombre: "Alien", valor: 200},
-... {categoria: "Comedia", nombre: "The Adventure", valor: 300},
-... {categoria: "Comedia", nombre: "Agua y Sal", valor: 250}
-])
-```
-```javascript
-BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 6,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
-        "upserted" : [ ]
-})
-```
-###### *shell* 
-```javascript
-> db.peliculas.aggregate( [ {$group : {_id: "$categoria"} } ] )
-```
-```javascript
-{ "_id" : "Comedia" }
-{ "_id" : "Ciencia Ficcion" }
-{ "_id" : "accion" }
-```
-<br>
-
-#### **Repeticion de grupos**
-###### *shell* 
-```javascript
-> db.peliculas.aggregate( [ {$group : {_id: "$categoria", "repetidos": {$sum: 1}} } ] )
-```
-```javascript
-{ "_id" : "Comedia", "repetidos" : 2 }
-{ "_id" : "Ciencia Ficcion", "repetidos" : 1 }
-{ "_id" : "accion", "repetidos" : 3 }
-```
-<br>
-
-#### **Suma de campos por grupo**
-###### *shell* 
-```javascript
-> db.peliculas.aggregate( [ {$group : {_id: "$categoria", "repetidos": {$sum: 1}, "sumaValor": {$sum: "$valor" } } } ] )
-```
-```javascript
-{ "_id" : "Comedia", "repetidos" : 2, "sumaValor" : 550 }
-{ "_id" : "Ciencia Ficcion", "repetidos" : 1, "sumaValor" : 200 }
-{ "_id" : "accion", "repetidos" : 3, "sumaValor" : 300 }
-```
-<br>
-
-#### **Promedio de grupos**
-###### *shell* 
-```javascript
-> db.peliculas.aggregate( [ {$group : {
-..._id: "$categoria", 
-..."repetidos": {$sum: 1}, 
-..."sumaValor": {$sum: "$valor" }, 
-...promedioValor: {$avg: "$valor"} 
-...} } ] )
-```
-```javascript
-{ "_id" : "Comedia", "repetidos" : 2, "sumaValor" : 550 }
-{ "_id" : "Ciencia Ficcion", "repetidos" : 1, "sumaValor" : 200 }
-{ "_id" : "accion", "repetidos" : 3, "sumaValor" : 300 }
-```
-<br><br><br><br>
-
-## Expresiones regulares
-### **'Like'**
-###### *shell*
-```javascript
-> db.prueba.insert ([
-... {correo: "alan@gmail.com"},
-... {correo: "alan@outlook.com"},
-... {correo: "test@live.mx"}
-... ])
-```
-```javascript
-BulkWriteResult({
-        "writeErrors" : [ ],
-        "writeConcernErrors" : [ ],
-        "nInserted" : 3,
-        "nUpserted" : 0,
-        "nMatched" : 0,
-        "nModified" : 0,
-        "nRemoved" : 0,
-        "upserted" : [ ]
-})
-```
-<br>
-
-#### **Cualquier zona**
-__/__ *texto*  __/__ 
-
-Busca contenido ingresado en ***cualquier*** parte del texto
-
-###### *shell*
-```javascript
-> db.prueba.find({correo: /@g/})
-```
-```javascript
-{ "_id" : ObjectId("5d08ec22ad79d8f46660eef4"), "correo" : "alan@gmail.com" }
-```
-
-<br>
-
-#### **Al final**
-__/__ *texto*__$ /__ 
-
-Busca contenido ingresado al ***final*** del texto
-###### *shell*
-```javascript
-> db.prueba.find({correo: /mx$/})
-```
-```javascript
-{ "_id" : ObjectId("5d08ec22ad79d8f46660eef6"), "correo" : "test@live.mx" }
-```
-
-<br>
-
-#### **Al inicio**
-__/ ^__ *texto* __/__
-
-busca contenido ingresado al ***inicio*** parte del texto
-###### *shell*
-```javascript
-> db.prueba.find({correo: /^a/})
-```
-```javascript
-{ "_id" : ObjectId("5d08ec22ad79d8f46660eef4"), "correo" : "alan@gmail.com" }
-{ "_id" : ObjectId("5d08ec22ad79d8f46660eef5"), "correo" : "alan@outlook.com" }
-```
-
-<br><br><br><br>
+    db.ejemplo.insert( variable );
 
+#### En caso de que no exista el ´Documento´se creara automaticamente.
+
+#### Ejecutamos el metodo
+    db.ejemplo.find()
+>> Y obtendremos los `"Registros"` antes insertados.
+
+## Insert multiple
+    
+    db.ejemplo.insert( [
+        { nombre : "Alina", apellido : "Avila", edad : 2 } ,
+        { nombre : "Mariana", apellido : "Villanueva", edad : 27 } ,
+        { nombre : "Ramses", apellido : "Barrios", edad : 14 }
+    ] )
+>La caracteristica de agregar multiples objetos JSON o registros es agregar **´[ ]´** (Corchetes) para indicar que es un **Array** de datos.
+
+
+# Update
+
+Para actualizar datos en MongoDB hay que tener ciertas consideraciones que se muestran a continuacion.
+
+#### Estructura
+
+>db.ejemplo.update( 
+>   **`{ "nombre" : "Eric" }`** , { "apellido" : "Avila", "edad" : "50"  }  )
+
+>> ### Siempre ten en cuenta que al momento de hacer la consulta de esta forma, tienes que poner todos sus campos, ya que si no lo haces se _actualizara_ con las propiedades que solo hayas puesto en la sentencia.
+>>> Para evitar eso existe lo siguiente 
+
+#### Estructura
+
+db.ejemplo.update( { "nombre" : "Eric" }, { **`$set :   { "TipoDeSanGre" : "A+" }`**  } , { **_upsert : true_** }  )
+>La funcion **`$set`** sirve para agregar una propiedad mas a nuestra `carpeta` o `registro`
+
+>>> Tranquilo enseguida sabras porque se agrega **`upsert`**.
+
+
+Hay una `"configuracion"`dentro de la estructura del **`Update`** que nos da la siguientes prestaciones.
+     
+### -> upsert : true / true
+
+var variable = { "nombre" : "Eric", "apellido" : "Avila", "edad" : "27"  } ,  **`{ upsert : true }`**
+
+> Con esta caracteristica activada **true** hace que si el `Documento`no existe se creá y si existe lo actualiza. Si agregamos el estado de la variable a **false** hace lo contrario
+>>En otras palabras si no lo encuentra no hace nada.
+    
+> Nota : **Recuerda que con esa consulta solo actualiza la primera coincidencia**
+
+### -> multi : true / true
+
+var variable = { "nombre" : "Eric", "apellido" : "Avila", "edad" : "27"  } ,  **`{ multi : true }`**
+
+> Con esta caracteristica activada **true** especificamos que queremos `actualizar multiples documentos` por default esta se cuentra en **false**. Aunque no lo agreguemos en nuestra sentencia siempre estara en ese estado a menos que lo cambiemos, obviamente.
+
+### Si desearamos eliminar un `campo` de nuestro `documento` se haria de la siguiente forma
+
+>db.products.update( { _id: ObjectId("51e6681a2b7e6dab80c1ebd6") }, { **`$unset:{ "edad" : "1" }`** } )
+>>¿Por que se pone 1?, sucede que el 1 funje como `true` siendo esta funcion un `boleano`
+
+
+### Incrementar un valor **`$inc`**
+>Supongamos que por alguna razon tenemos nos equivocamos en una cantidad y ocupamos que sea mas de lo que pusimos en la propiedad, para este tipo de casos se utiliza lo siguiente:
+
+>db.products.update( { _id: ObjectId("51e6681a2b7e6dab80c1ebd6") } , { **`$inc:{ "edad" : 10 }`** } )
+>
+>>Que es lo que sucede, toma el valor actual de la propiedad `edad`y le aumenta la cantidad de 10 al valor actual.
+
+## Save 
+
+**`.save`** realiza la misma funcion que el **`update`** con **_upsert_**. Esto quiere decir que si **NO EXISTE EL DOCUMENTO** lo va a crear ó si existe lo actualizara.
+
+### Estructura
+
+>db.ejemplo.save( **`_id: ObjectId("50691737d386d8fadbd6b01d")`** , { "apellido" : "Avila", "edad" : "12"  }  )
+
+
+# **`Recomiendo actualizar utilizando como parametro el _id_ ya que con esto tenemos mas control y asi evitaremos errores.`**
+
+# Find / FindOne
+
+Estos metodos son utilizados para buscar `documentos` en la base de datos, claro ambas son para casos especificamos como te muestro a continuacion.
+
+## Find
+
+### Estructura
+
+###### Este comando te muestra los `documentos` que contiene la coleccion que seleccionamos. (Muestra los primeros 20 resultados que encuentre por default)
+
+	db.NombreDeLaColeccion.find()
+
+### Ejemplo	
+
+	db.ejemplo.find()
+	
+##### Ese resultado se puede guardar en una variebla para luego consultar por medio de una posicion que queramos obtener ( Imagina un Array con los datos y un Indice para utilizarlo para el contenido de la posicion )
+
+	 var nombreDeLaVariable = db.NombreDeLaColeccion.find()
+
+### Ejemplo
+	 var array = db.ejemplo.find()
+	
+Para imprimir el Indice al cual queremos acceder utilizando la variable anterior haras lo siguiente:
+	
+	 printjson ( array [ 4 ] )
+	
+>>Donde **`array`** es la variable que utilizamos para guardar el resultado de la consulta y el numero dentro de los corchetes es el Indice al cual queremos acceder.
+	 
+	 
+##  TIP !!!
+
+###### Este comando imprime el contenido de una Carpeta en formato JSON
+	$: db.NombreDeLaColeccion.pretty()
+
+### Ejemplo con el comando `.find()`
+	$: db.ejemplo.find().pretty()
+	
+**Esto nos ayudara a leer los resultados de una mejor manera el contenido de un documento o dentro de una base de datos.**
+
+## FindOne 
+
+#### Estructura
+
+    db.ejemplo.findOne()
+
+Este comando te muestra un documento al azar ya que no le agreamos ningun `argumento` para especificar la busqueda.
+
+### Ejemplo `.find( con argumentos )`
+
+    db.ejempli.findOne( { "_id": "ObjectId("50691737d386d8fadbd6b01d")" } )
+
+>>En este ejemplo le agreamos los argumentos para hacer la busqueda de un `_id` especificamente y es lo que vamos a obtener, solo ese.
+
+En caso de que querramos buscar varios documentos que tengan **una coincidencia** dependiendo del argumento que le pasemos al metodo se haria de la siguente manera
+
+### Ejemplo
+
+    db.ejemplo.find( { "nombre" : "Eric" } )
+
+>>Asi retornara todo los "Usuarios" llamados **Eric**
+>>>Hasta aqui siempre nos muestra todos los campos que contiene el documento, pero que tal si no queremos que nos muetre todo, que tal si solo queremos saber ciertas cosas, para este tipo de casos haremos lo siguiente.
+
+
+>>>**db.ejemplo.find( { "nombre" : "Eric" } , `"apellido" : true , "edad" : false`  } )**
+>>>
+>>>De esta manera nos retornara todas las personas que tengan el nombre de **`Eric`** y el campo **`apellido`**
+ya que es el unico que tiene el estado **`true`**.
+
+# Remove
+
+Este comando hace lo que dice, eliminar el documento que especifiquemos.
+
+>**Recuerda tener cuidado ya que si no especificas el `documento` en la consulta, eliminaras todo.**
+
+### Ejemplo
+
+    db.ejemplo.remove( { "_id": "ObjectId("50691737d386d8fadbd6b01d")" } )
+
+# Operadodes 
+>(Actualizare a medida que entienda un poco mas y sea lo suficiente claro para explicarlo)
+
+## Ejemplo de problema para poder entender algunos operadores.
+
+>Supongamos que tenemos una base de datos de un Hospital y que en este Hospital tiene la necesidad de saber que pacientes son aptos para ser operados ya que es necesario revisar los examenes de sus analisis para pasarlos a Cirugia o regresarlos hasta que cumplan los requisitos
+
+*"Se que es raro pero creeme que entenderas mejor los operadores así".*
+
+### Manejaremos la siguiente estructura JSON para un paciente
+    
+    { 
+        _id: ObjectId("51e6681a2b7e6dab80c1ebd6") ,
+         nombrePaciente : "Jose Jose" , 
+         edadPaciente : 50 ,
+         fechaIngreso : [
+                           { dia : "Lunes" } ,
+                           { mes : "Abril" },
+                           { año : 2018 }
+                        ] ,
+        alergias : ["penicilina","diclofenaco","polen"] ,
+        aptoCirugia : "No" ,
+        triguiceridos : 200 ,
+        azucar : 150 ,
+        cirugiasAnteriores : "Si"
+
+    }
+    
+>Recuerda que es un ejemplo y que tenemos una Base de datos llamada **Hospital**.
+
+### Caso 1 - El uso de **`$eq`**
+>**( Equal )** Evalua si un campo es **igual** al valor que hayas escrito.
+
+##### -> *Supongamos que quisieramos saber los pacientes que tengan una edad especifica*
+
+    db.hospital.find( { edadPaciente : { $eq : 18 } } )
+    
+### Caso 2 - El uso de **`$gt`** y **`$lte`**
+>**( Greater than )** Evalua si un campo es **mayor** al valor que hayas escrito y **( Lesser than or equal )** Evalua si un campo es **menor o igual** al valor que hayas escrito
+
+##### -> *Supongamos que quisieramos saber los pacientes que son mayores de edad (18 años) hasta los 30 años*
+
+    db.hospital.find( { edadPaciente : { $eq : 18 , $lte : 30 } } )
+
+### Caso 3 - El uso de **`$or`** y **`$lt`**
+>**( Ó )** este operar se utiliza en caso de que puede suceder una cosa ú otra y **( Lesser than  )** Evalua si un campo es **menor** al valor que hayas escrito
+
+##### -> *Supongamos que quisieramos saber los pacientes que son menores de 50 años ó que hayan tenido cirugias anteriores *
+
+    db.hospital.find( { $or: [ { edad: { $lt: 50 } }, { cirugiasAnteriores: "Si" } ] } )
+
+
+#### Operadores Basicos
+
+Operadores  | Funcion
+------------- | -------------
+$eq  | (Equal) 
+$gt  | (Greater than) 
+$gte | (Greater than or equal) 
+$lt | (Lesser than) 
+$lte | (Lesser than or equal) 
+$ne | (Not equal) 
+$or | (O)
+$and | (Y)
+<!--
+$exists | {exists: true} evalúa si existe(no es nulo).
+$in | Evalúa si el valor se encuentra dentro del array.
+$nin | (Not in) Evalúa si el valor no se encuentra dentro del array.
+$all | Evalúa si todos los valores se encuentran dentro del array.
+$mod | (Modulo) Aplica la operación de módulo y lo compara con el valor pasado.
+$regex | Selecciona los documentos que casan con el valor de la expresión regular.
+$$text | Realiza una busqueda de texto.
+$where| Casa con los documentos que satisfagan una expresión en JavaScript.
+-->
+
+# Ordernar `Documentos` en la `Coleccion`
+>Hemos utilizado el comando `.pretty()` al final de las consultas para que nos muestra una forma mas legible los `registros` ahora que pasaria si quisieramos order los datos dentro de la `Coleccion` para este tipo de casos se utiliza el comando **`.sort()`**
+
+
+##### -> *Siguiendo con el ejemplo del Hospital se nos ordena que organizemos alfabeticamente a todos los pacientes*
+
+    db.hospital.find().sort( { nombrePaciente : 1 } )
+    
+>>El valor de **1** significa que ordenara de manera ascendente y caso contrario se utilizara **-1**
+
+# Usos de **.count()**
+Como habiamos visto en el inicio este metodo nos sirve para contar, para mostrar su utilidad utilizaremos el ejemplo del Hospital
+
+##### -> *Supongamos que queremos saber cuantos paciente ingresaron durante el año 2018*
+
+    db.hostpital.find( "fechaIngreso.año" : 2018 ).count()
+
+# ¿Como acceder a los datos que estan dentro de un `registro`? 
+
+Como te pudiste dar cuenta en la sentencia anterior consultamos la cantidad de personas que fueron ingresadas durante el año 2018, pero ese dato no se encuentra en el "primer nivel" de nuestro formato JSON que contiene los datos del paciente, entonces ¿ como accedimos a el ?.
+
+### Estructura JSON de paciente
+    { 
+        _id: ObjectId("51e6681a2b7e6dab80c1ebd6") ,
+         nombrePaciente : "Jose Jose" , 
+         edadPaciente : 50 ,
+         fechaIngreso : [
+                           { dia : "Lunes" } ,
+                           { mes : "Abril" },
+                           { año : 2018 }
+                        ] ,
+        alergias : ["penicilina","diclofenaco","polen"] ,
+        aptoCirugia : "No" ,
+        triguiceridos : 200 ,
+        azucar : 150 ,
+        cirugiasAnteriores : "Si"
+
+    }
+
+> *A estas alturas te habras dado cuenta que MongoDB trabaja con la estructura de datos JSON y aunque no lo creas tambien estas utilizando JavaScript, de hecho es dicen los que saben que es mejor aprender JavaScript y despues MongoDB, yo diria y ¿por que no ambos?.*
+
+#### Regresando al tema analicemos los "`niveles`" que tenemos en nuestra estructura de paciente
+
+    fechaIngreso : [
+                           { dia : "Lunes" } ,
+                           { mes : "Abril" },
+                           { año : 2018 }
+                        ] 
+>Observemos que una de las propiedades de nuestro Paciente fue la fecha de ingreso al hospial y en esta se tiene otras propiedades dentro para hacer mas especifico en como se maneja la fecha de ingreso.
+
+### Accedamos a los valores de fechaIngreso
+
+##### -> *Supongamos que queremos saber el dia en el que el paciente ingreso, lo cual lo hariamos de la siguiente manera*
+
+    db.hostpital.find( {"_id" : ObjectId("5a9bc2f7ae61711fa665c462")} , {"fechaIngreso.dia" : true } ).pretty()
+
+>Como puedes observar solo te muestra el `dia` en el cual fue ingresado el pasciente, recuerda que para solo mostrar un dato agregaremos la `propiedad` que queremos obtener con un estado `true` ( Esto ya se vio con anterioridad ).
+
+>Ó ahora bien, si quieres ver todos los pacientes que entraron el dia Lunes seria así.
+
+    db.hostpital.find({ "fechaIngreso.dia" : "Lunes" }).pretty()
+
+>Excelente ahora podemos ser mas especificas nuestras busquedas.
+
+## Arrays
+
+Array imaginalo como un contener que puede tener en su interior `n` datos, los cuales estan organizados por algo llamado `indice`.
+
+    alergias : ["penicilina","diclofenaco","polen"]
+
+>En el caso de la seccion de alergias observemos que no tiene mas propiedades si no, se puede entender como un `array` llamado `alergias` las cuales contiene **3 Espacios** utilizados. 
+>
+>En un `array` se inicia el conteo desde **`0`** (Cero), esto quiere decir que el **`Indice`** para acesar a alguno de los elementos del `array` seria algo como [0] = penicilina , [1] = diclofenaco, [2] = polen.
+
+### Accedamos a los valores de alergias
+
+##### -> *Supongamos que queremos saber las alergias del paciente, para un caso asi, esta seria la solucion*
+
+    db.hostpital.find( {"_id" : ObjectId("5a9bb274ae61711fa665c45f")} , { alergias : true } ).
+
+### Los Arrays y sus operadores
+
+Operadores  | Funcion
+------------- | -------------
+$elemMatch  | asd 
+$slice  | asd
+$.  | asd 
+$size | asd
+
+
+##### -> *Pero, y si solo queremos saber la primera alergia del paciente*
+
+    db.hostpital.find( {"_id" : ObjectId("5a9bb274ae61711fa665c45f")} , { alergias : { $slice : 1 } } )
+
+>Nos muestra todo el `documento` del Paciente y en la parte donde se encuentran las alergias solo nos muestra la primera. **`Ten en cuenta que dependiendo del numero que pongamos es la cantidad de elementos que nos mostrara, empezadon de Izquierda a Derececha o en si lo vemos de manera mas Tecnica del INDICE [0] en adelante`** 
