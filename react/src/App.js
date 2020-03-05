@@ -7,6 +7,7 @@ import Stateless from './components/Stateless';
 import Stateful from './components/Stateful';
 import StyledComponent from './components/StyledComponent';
 import Router from './components/Router';
+import Hooks from './components/Hooks';
 
 /* Component with Styled Component */
 
@@ -18,6 +19,7 @@ const App = () => (
     <StyledComponent></StyledComponent>
     <h1>Router</h1>
     <Router></Router>
+    <Hooks></Hooks>
   </div>
 )
 export default App;
