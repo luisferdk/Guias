@@ -3,31 +3,26 @@
   // Con Parametros o Sin Parametros
   // Vacia o Retorna
 
-  function mostrarNombre() { //Vacia y Sin Parametros
+  function mostrarNombre() {
+    //Vacia y Sin Parametros
     console.log('Soy Luis');
   }
   mostrarNombre();
 
-
-
-  function mostrarNombreApellido(nombre, apellido) { // Vacia con Parametros
+  function mostrarNombreApellido(nombre, apellido) {
+    // Vacia con Parametros
     console.log(`El Nombre es ${nombre} y el Apellido es ${apellido}`);
   }
   mostrarNombreApellido('Luis', 'Fernandez');
 
-
-
-  function enviarPi() { //Retorna sin Parametros;
-    console.log("Estoy retornando PI");
+  //Retorna sin Parametros;
+  function enviarPi() {
+    console.log('Estoy retornando PI');
     return 3.1416;
   }
 
-  const pi = enviarPi();
-
-
-
-
-  function suma(num1, num2) { //Retorna con parametros
+  //Retorna con parametros
+  function suma(num1, num2) {
     let total = num1 + num2;
     return total;
   }
