@@ -60,7 +60,7 @@ Un Middleware es un manejador de peticion, y se ejecuta antes que lleguen a cual
 - Uso el Middleware y lo llamo con un formato| app.use(morgan("dev")) //usa el Middleware
   Ya en consola veo una peticion de tipo get la ruta el codigo de estado de la peticion, el tiempo de respuesta y el peso de la respuesta
 
-  ### Static Files Middleware
+### Static Files Middleware
 
   <p>
     Un Middleware que nos permite enviar archivos estaticos al frontend un html que puede tener css, javacript enlazados al html y los archivos se pueden ver en el navegador ejemplo http://localhost:3000/css/main.css me muestra el css de ese archivo
