@@ -6,26 +6,23 @@
     métodos o funciones
   */
 
-  class Rueda {
+  class Persona {
     constructor() {
-      this.radio = "";
-      this.gruesor = "";
+      this.nombre = "Luis";
+      this.apellido = "Fernández";
     }
-
-    mostrarInformacion(){
-      console.log(`
-        Radio: ${this.radio}
-        Gruesor: ${this.gruesor}
-      `);
+    mostrarNombre() {
+      console.log(`Mi Nombre es ${this.nombre}`);
     }
-    avanzar() {
-      console.log('Estoy Avanzando...');
-    }
-
-    detener() {
-      console.log('Me detuve');
+    cambiarApellido(nuevoApellido) {
+      this.apellido = nuevoApellido;
+      return this.apellido;
     }
   }
+
+
+
+
 
 
   const rueda1 = new Rueda();

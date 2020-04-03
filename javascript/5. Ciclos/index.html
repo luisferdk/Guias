@@ -5,21 +5,29 @@
   }
 
   /* Ejemplo */
+  // Ciclo For:
+  // Se repetir desde a hasta b.
+  // Se usa para recorrer variables tipo vector
   let frutas = ['Manzana', 'Pera', 'Uva'];
-
   for (let i = 0; i < frutas.length; i++) {
     console.log(frutas[i]);
   }
 
-  let edad = 0;
-  do {
+  // Ciclo While
+  // Se repite el código mientras se cumpla la condición
+  let edad = 1;
+  while (edad < 18) {
     console.log('Eres menor de edad');
-  } while (edad == 4);
+    edad++;
+  }
 
+  // Ciclo Do While
+  // Se repite el código mientras se cumpla la condición
   let respuesta;
   do {
-    respuesta = prompt('Desea Registrar otro estudiante');
-  } while (respuesta == 'S'); // Se repite mientras se cumpla esta condición
+    respuesta = prompt(`Desea Registrar
+                        otro estudiante S/N`);
+  } while (respuesta == 'S');
 
   let cumpleaños = 21;
   while (cumpleaños <= 20) {
@@ -27,4 +35,10 @@
     console.log(`Hay Regalo Cumplio ${cumpleaños}`);
     cumpleaños++;
   }
+
+  // Ambos ciclos funcionan igual.
+  // La diferencia es que en el Do While
+  // obligatoriamente entra al ciclo al menos 1 vez.
+
+
 </script>

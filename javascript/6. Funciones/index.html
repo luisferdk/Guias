@@ -3,17 +3,22 @@
   // Con Parametros o Sin Parametros
   // Vacia o Retorna
 
+  //Vacia y Sin Parametros
   function mostrarNombre() {
-    //Vacia y Sin Parametros
-    console.log('Soy Luis');
+    console.log('Hola soy Luis');
   }
+
+  //Así se llama la función
   mostrarNombre();
 
+  // Vacia con Parámetros
   function mostrarNombreApellido(nombre, apellido) {
-    // Vacia con Parametros
-    console.log(`El Nombre es ${nombre} y el Apellido es ${apellido}`);
+    console.log(`Nombre es ${nombre}
+                 Apellido es ${apellido}`);
   }
+  //Así se llama la función
   mostrarNombreApellido('Luis', 'Fernandez');
+
 
   //Retorna sin Parametros;
   function enviarPi() {
@@ -26,6 +31,7 @@
     let total = num1 + num2;
     return total;
   }
+
 
   const resultado = suma(3, 6);
   console.log(resultado);
