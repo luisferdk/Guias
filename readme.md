@@ -9,6 +9,7 @@
 ### Escenciales
 
 1. [Git y Github](git%20y%20github/readme.md)
+1. [Postman](postman/readme.md)
 
 ### Backend
 
