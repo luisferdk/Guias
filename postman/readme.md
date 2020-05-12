@@ -154,6 +154,14 @@ Contiene key and value
   2. Presiono los 3 puntos
   3. Le damos guardar y listo
 
+## Ciclo de Vida
+  pre-request, request, test
+
+## Guardar Variable entorno global
+```javascript
+pm.globals.set('date','the value');
+```
+
 ## Crear Documentación
   1. Voy a la Collection
   2. Presiono los 3 puntos
