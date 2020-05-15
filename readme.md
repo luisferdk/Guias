@@ -8,20 +8,20 @@
 
 ### Escenciales
 
-1. [Git y Github](git%20y%20github/readme.md)
-1. [Postman](postman/readme.md)
+1. [Git y Github](Git%20y%20Github/readme.md)
+1. [Postman](Postman/readme.md)
 
 ### Backend
 
-1. [Express](express/readme.md)
-2. [Javascript](javascript/readme.md)
-3. [Typescript](typescript/readme.md)
+1. [Express](Express/readme.md)
+2. [Javascript](Javascript/readme.md)
+3. [Typescript](Typescript/readme.md)
 
 ### Frontend
 
-1. [React](react/readme.md)
+1. [Grid CSS](Grid%20CSS/readme.md)
+2. [React](React/readme.md)
 
 ### Base de Datos
 
-1. [Mongodb](mongodb/readme.md)
-2. [Mysql](mysql/readme.md)
+1. [Mongodb](Mongodb/readme.md)
