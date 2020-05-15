@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1 class="clase3 clase4">Hola</h1>
+  <button>1</button>
+  <button>2</button>
+  <button>3</button>
+  <button>4</button>
+  <button>5</button>
+  <script>
+    /* Obtener elemento del DOM  */
+    const h1 = document.querySelector('h1');
+
+    /* Añadir Clases a Elemento*/
+    h1.classList.add('clase1'); // forma 1
+    document.querySelector('h1').classList.add('clase2');
+
+    /* Quitando Clase a Elemento */
+    h1.classList.remove('clase3'); // forma 1
+    document.querySelector('h1').classList.remove('clase4');
+
+    /* Saber si tiene clase específica */
+    console.log(h1.classList.contains('clase1'));
+    console.log(document.querySelector('h1').classList.contains('clase4'));
+
+    /* Cambiar Texto de un elemento */
+    setTimeout(function () {
+      document.querySelector('h1').innerHTML = "Soy el nuevo texto";
+    }, 2000);
+
+    /* Agregar Evento */
+    h1.addEventListener('click', function () {
+      alert('Presionaste Click Sobre el h1');
+    });
+
+    /* Agregar Eventos a un Vector de Elementos */
+    const buttons = document.querySelectorAll('button');
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener('click', function (evento) {
+        alert(i);
+      })
+
+    }
+  </script>
+</body>
+
+</html>
