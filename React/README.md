@@ -1,68 +1,58 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React
 
-## Available Scripts
+_Para crear un proyecto en react lo podemos empezar con create-react-app o podemos configurar webpack con babel_
 
-In the project directory, you can run:
+_`Con create-react-app:` Es una aplicación moderna que se usa desde una línea de comando. Antes de ella se configuraba todo el entorno manualmente lo cual tomaba mucho tiempo._
+```bash
+npm i -g create-react-app
+create-react-app newApp
+```
 
-### `yarn start`
+## JSX
+_Es sintaxis sugar para usar html en nuestro javascript_
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Ciclo de Vida
+  1. constructor(props)
+  2. render()
+  3. componentDidMount()
+  4. render()
+  5. componentDidUpdate(prevProps, prevState)
+  6. componentWillUnmount()
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Eventos
+  1. onClick={this.handleClick}
+  2. onKeyDown={this.handleKeyDown}
+  2. onChange={this.handleChange}
 
-### `yarn build`
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## React DOM
+  ReactDOM.render(component, donde);
+  ReactDOM.render(<App />, container);
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## React Router DOM
+  ```js
+  import { BrowserRouter, Switch, Route } from 'react-router-dom';
+    <BrowserRouter>
+      <Layout>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/badges" component={Badges} />
+          <Route exact path="/badges/new" component={BadgeNew} />
+          <Route component={NotFound} />
+        </Switch>
+      </Layout>
+    </BrowserRouter>
+  ```
 
-### `yarn eject`
+## Llamadas a un API
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+_Tenemos 3 estados_
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* `Loading`: cuando la petición se envía y estamos esperando.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* `Error`: se debe dejar un mensaje para el usuario para arreglar el error o volver a intentarlo.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+* `Data`: los datos nos pueden llegar de dos formas, o en error o con los datos requeridos.
