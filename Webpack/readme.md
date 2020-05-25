@@ -36,3 +36,29 @@ npx webpack --mode=development --entry ./src/index.js --output ./src/bundle.js
 ## Plugins
   - MiniCSSExtractPlugin //Extrae el css en 1 archivo
   - HtmlWebpackPlugin //Crea un archivo html con los css y js automáticamente
+
+
+## Code Splitting
+```json
+{
+  optimization:{
+    splitChunks:{
+      chunks:'all',
+      minSize: 0,
+      name:'commons'
+    }
+  }
+}
+```
+## Dynamic Link Library
+<p>
+Mientras más librerías agregamos más lento se empiezan a volver nuestros builds, arruinando así la Developer Experience. Por suerte podemos crear una (o varias) Dynamic Link Library para acortar estos tiempos.
+</p>
+
+<p>
+Una Dynamic Link Library (DLL) es un conjunto de librerías comunes que no cambian frecuentemente por lo que se hace un build por adelantado de las mismas para no re-empaquetar cada vez que hacemos build de nuestra aplicación.
+</p>
+
+<p>
+Beneficiando tanto la Developer Experience como la User Experience ya que el caché del navegador va a mantener una copia que solo va a cambiar cuando nosotros agreguemos o quitemos alguna dependencia, ahorrando así valiosos requests al servidor.
+</p>
