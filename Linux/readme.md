@@ -1,0 +1,26 @@
+# Linux
+## Basic Commands
+  - `pwd` = print working directory
+  - `cd` = change directory
+  - `ls` = list
+  - `ls` -lh = list with options
+  - `mkdir` = make directory
+  - `clear` or ctrl + l = clear
+  - `mv` = move
+  - `rm` = remove
+  - `rm` -r = remove directory
+  - `cp` = copy
+  - `cp` -r = copy directory
+  - `pushd` = create link direction
+  - `popd` = create link back direction
+  - `more` 'file' = show archive in resumen
+  - `cat` 'file'= show archive all
+  - `tail` 'file'= show 10 end lines
+  - `tail` -15 'file' = show 15 end lines
+  - `tail` -f 'file' = show forever
+  - `which` 'name' = search direction bin
+  - `echo` $path = print all directories bin path
+  - `open` -a 'binario' 'file' = open file with binario
+  - `ctrl` + r = search commands prev eject
+  - `cat` ls -la > ls.txt = save out in file.txt (overwrite)
+  - `cat` ls -la >> ls.txt = save out in file.txt (don't overwrite)
