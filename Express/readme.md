@@ -3,9 +3,19 @@
 ### Que es Express?
 
 <p>
-Express es un framework de nodejs para crear apps del lado del servidor y poder escribir nuestro servidor con este modulo (Express) y podemos escribir apps MVC este framework acepta varios paradigmas
+Express es un framework de nodejs para crear apps del lado del servidor y poder escribir nuestro servidor con este modulo (Express) y podemos escribir apps MVC este framework acepta varios paradigmas.
+
 - Ir a la pagina de expressjs.com en api reference nos aparece que es lo que hace cada parte de express, los metodos, los enrutadores. Nos sirve de recordatorio</p>
 
+
+### Generar un Proyecto
+```bash
+npm install express-generator -g
+express --view=ejs myapp
+cd myapp
+npm install
+DEBUG=myapp:* npm start
+```
 #### Instalación
 
 1- creamos el package.json (describe nuestro proyecto) | npm init -y
@@ -22,7 +32,7 @@ app.listen(3000, () =>
 );
 ```
 
-`npm i nodemon -D`
+`npm i nodemon -D` Sirve para correr en el archivo principal y cuando se modifique recargar automáticamente.
 
 ### Express Routing y METODOS HTTP
 
