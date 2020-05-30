@@ -307,6 +307,16 @@ let user = users.find((user) => user.name == 'luis'); // return object with name
 
 // return array
 let usersAge26 = users.filter((user) => user.age == 26);
+
+let length = users.length; //length
+
+users.push(newUser); //añade al final
+users.pop(); //elimina ultimo
+
+users.unshift(newUser); //añade al principio
+users.shift(); //elimina el primero
+
+users.splice(pos, 1); //elimina el que este en pos
 ```
 
 ## Generadores
