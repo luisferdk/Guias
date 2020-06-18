@@ -280,25 +280,13 @@ for (let i of iterable) {
 
 ```js
 let users = [
-  {
-    id: 4,
-    name: 'luis',
-    surname: 'Fernández',
-    age: 26,
-  },
-  {
-    id: 6,
-    name: 'Sidney',
-    surname: 'Garcia',
-    age: 26,
-  },
-  {
-    id: 8,
-    name: 'Alejandro',
-    surname: 'Garcia',
-    age: 16,
-  },
+  {id: 4,name: 'luis',surname: 'Fernández',age: 26,},
+  {id: 6,name: 'Sidney',surname: 'Garcia',age: 26,},
+  {id: 8,name: 'Alejandro',surname: 'Garcia',age: 16,},
 ];
+
+let vector = new Array(3).fill(0);  // return vector [0,0,0];
+
 //return index
 let index = users.findIndex((user) => user.id == 1); // return posicion 1
 
@@ -317,6 +305,13 @@ users.unshift(newUser); //añade al principio
 users.shift(); //elimina el primero
 
 users.splice(pos, 1); //elimina el que este en pos
+
+
+// includes
+  let vector = [1,2,3,4,5];
+if(vector.includes(3)){
+  console.log('If exist')
+}
 ```
 
 ## Generadores
