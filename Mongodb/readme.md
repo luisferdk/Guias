@@ -19,15 +19,7 @@ Foreign Key  | Reference / Referencia
 Crear una Colecion ( Una BD )
 	
 	 mongo NombreDeLaBaseDeDatos
-	
-### Ejemplo
-	
-	 mongo ejemplo 
-
-Para ver la Base de Datos con la que se esta trabajando
-	
-	 db
-
+show dbsVid
 Para mostrar todas las Base de Datos
 	
 	 show dbs

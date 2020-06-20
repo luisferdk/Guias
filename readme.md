@@ -2,26 +2,30 @@
 
 ## Tabla de Contenido
 
-### Programación
-
-1. [Programación Funcional](Programación%20Funcional/readme.md)
-
 ### Escenciales
-
-1. [Git y Github](Git%20y%20Github/readme.md)
-1. [Postman](Postman/readme.md)
-
-### Backend
-
-1. [Express](Express/readme.md)
-2. [Javascript](Javascript/readme.md)
-3. [Typescript](Typescript/readme.md)
+  - [Git y Github](Git%20y%20Github/readme.md)
+  - [Linux](Linux/readme.md)
+  - [Postman](Postman/readme.md)
+  - [Programación Funcional](Programación%20Funcional/readme.md)
+  - [Patrones de Diseño](Patrones%20de%20Diseño/readme.md)
+  - [Readme](Readme/readme.md)
+  - [Javascript](Javascript/readme.md)
 
 ### Frontend
+  - [Grid CSS](Grid%20CSS/readme.md)
+  - [Ecmascript](Ecmascript/readme.md)
+  - [Typescript](Typescript/readme.md)
+  - [NPM](NPM/readme.md)
+  - [Webpack](Webpack/readme.md)
+  - [React](React/readme.md)
+  - [Gatsby](Gatsby/readme.md)
+  - [Nextjs](Nextjs/readme.md)
+  - [Svelte](Svelte/readme.md)
 
-1. [Grid CSS](Grid%20CSS/readme.md)
-2. [React](React/readme.md)
+### Backend
+  - [Express](Express/readme.md)
+  - [PassportJS](PassportJS/readme.md)
+  - [SSR con Express](SSR%20con%20Express/readme.md)
 
 ### Base de Datos
-
-1. [Mongodb](Mongodb/readme.md)
+  - [Mongodb](Mongodb/readme.md)
