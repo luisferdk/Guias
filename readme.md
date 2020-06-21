@@ -4,7 +4,7 @@
 
 ### Escenciales
   - [Git y Github](Git%20y%20Github/readme.md)
-  - [Linux](Linux/readme.md)
+  - [Terminal y Línea de Comandos](Terminal%20y%20Línea%20de%20Comandos/readme.md)
   - [Postman](Postman/readme.md)
   - [Programación Funcional](Programación%20Funcional/readme.md)
   - [Patrones de Diseño](Patrones%20de%20Diseño/readme.md)
