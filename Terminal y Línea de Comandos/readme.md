@@ -44,7 +44,10 @@
 - [Permisos](#permisos)
   - [Ejecutar como super user](#ejecutar-como-super-user)
 - [Convertir archivos a ejecutable](#convertir-archivos-a-ejecutable)
-- [Enlaces de Interés](#enlaces-de-interés)
+- [Error Disco](#error-disco)
+- [Montar Partición](#montar-partición)
+- [Repositorio Local](#repositorio-local)
+- [Instalar zsh](#instalar-zsh)
 
 ## Introducción
 
@@ -399,6 +402,8 @@ Muestra la cantidad de procesos que se están ejecutando actualmente.
 `du` muestra la cantidad de espacio usado por los archivos en un directorio. 
 * `-h` muestra el output de una manera que se pueda leer mejor.
 * `-d [numero]` nivel de profundidad. Cuántos niveles baja de carpeta.
+* `du -hd 1` // Muestra el peso de los directorios
+* `du -hd 2` // Muestra el peso de los directorios y subdirectorios
 
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
@@ -733,8 +738,59 @@ De este modo cuando ejecutamos `ejemplo.php` se ejecuta automáticamente y ya no
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
 </div>
 
-## Enlaces de Interés
-* [Introducción a Terminal y Línea de Comandos](https://platzi.com/clases/terminal/)
+## Error Disco
+```bash
+sudo ntfsfix /dev/sda4
+sudo umount /dev/sda5 && sudo ntfsfix /dev/sda5
+```
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Montar Partición
+```bash
+sudo code /etc/fstab --user-data-dir
+mkdir /media/luisferdk/HardDisk
+
+#Agregamos esta linea al final del archivo
+/dev/sda5 /media/luisferdk/HardDisk ntfs-3g defaults,rw,user,auto,nls=utf8,umask=000,uid=1000,exec 0 0
+```
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+## Repositorio Local
+```bash
+code /etc/apt/sources.list
+#Agrego esta linea
+deb file:/media/dvd1-mountpoint/ wheezy main contrib
+```
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
+
+## Instalar zsh
+```bash
+sudo apt-get install -y  zsh git-core
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+
+chsh -s `which zsh`
+sudo apt-get install fonts-powerline
+
+code ~/.zshrc
+ZSH_THEME="agnoster"
+
+# Ingresamos a
+.oh-my-zsh/themes/agnoster.zsh-theme
+#Cambiamos esta parte
+
+# Dir: current working directory
+prompt_dir() {
+  prompt_segment blue black '%1~'
+}
+#reiniciamos y listo
+```
 
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
