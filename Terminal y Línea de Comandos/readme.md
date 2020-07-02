@@ -48,6 +48,7 @@
 - [Montar Partición](#montar-partición)
 - [Repositorio Local](#repositorio-local)
 - [Instalar zsh](#instalar-zsh)
+- [Awk](#awk)
 
 ## Introducción
 
@@ -492,6 +493,27 @@ El error y el output aparecen en el mismo archivo
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
 </div>
 
+## Pipe
+
+Sirve para encadenar el standard output de un comando con el standard input de otro comando. Pa esto se usa `|`.
+
+* `| wc -l` muestra cantidad de lineas del output.
+```bash
+$ ls -l | wc -l
+```
+* `| grep [patrón]` devuelve las lineas que cumplen con el patrón.
+```bash
+$ cat peliculas.csv | grep Thriller
+```
+* `| more` muestra la lista de resultados por paginas.
+```bash
+$ cat peliculas.csv | more
+```
+
+<div align="right">
+  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
+</div>
+
 ### Buscar archivos
 
 `find [ruta] -name [nombre]` busca en base al nombre y la metadata dentro del directorio que le digamos.
@@ -501,6 +523,13 @@ El error y el output aparecen en el mismo archivo
 `find directorio_origen -type f -name [name] -exec [acción] {} ./directorio_destino \;` busca archivos
 según criterio de búsqueda y los copia o mueve todos a un directorio indicado.
 * -acción: puede ser `mv` para mover o `cp` para copiar
+
+```bash
+  # -mtime = Tiempo de Modificación
+  # +5 archivos creados hace más de 5 Días
+  # -maxdepth 1 = Buscar solo en la primera carpeta
+  find . -mtime +5 -type f -exec echo {} \;
+```
 
 ### `Nota:` colocar el atributo -type f para seleccionar solo los archivos y colocar \; para terminar el comando.
 
@@ -558,27 +587,6 @@ Con este comando se puede evaluar cuánto se demora en ejecutar un proceso
 `tar` es un comando similar a zip, junta varios archivos en uno solo sin comprimirlos. Después se le dicta un algoritmo de compresión, que es zip.
 * `cfz [archivo.tar.gz]` junta y comprime 
 * `xfz [archivo .tar.gz]` descomprime
-
-<div align="right">
-  <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
-</div>
-
-## Pipe
-
-Sirve para encadenar el standard output de un comando con el standard input de otro comando. Pa esto se usa `|`.
-
-* `| wc -l` muestra cantidad de lineas del output.
-```bash
-$ ls -l | wc -l
-```
-* `| grep [patrón]` devuelve las lineas que cumplen con el patrón.
-```bash
-$ cat peliculas.csv | grep Thriller
-```
-* `| more` muestra la lista de resultados por paginas.
-```bash
-$ cat peliculas.csv | more
-```
 
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
@@ -795,3 +803,8 @@ prompt_dir() {
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
 </div>
+
+## AWK
+```bash
+ls | awk {'print $0'}
+```
