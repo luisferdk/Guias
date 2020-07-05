@@ -10,6 +10,7 @@
   - [Patrones de Diseño](Patrones%20de%20Diseño/readme.md)
   - [Readme](Readme/readme.md)
   - [Javascript](Javascript/readme.md)
+  - [VIM](VIM/readme.md)
 
 ### Frontend
   - [Grid CSS](Grid%20CSS/readme.md)
