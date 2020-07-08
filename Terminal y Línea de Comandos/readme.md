@@ -405,6 +405,7 @@ Muestra la cantidad de procesos que se están ejecutando actualmente.
 * `-d [numero]` nivel de profundidad. Cuántos niveles baja de carpeta.
 * `du -hd 1` // Muestra el peso de los directorios
 * `du -hd 2` // Muestra el peso de los directorios y subdirectorios
+* `du -hd 1 | sort -h` // ordena por peso
 
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
