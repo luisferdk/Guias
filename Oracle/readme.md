@@ -218,19 +218,19 @@ end;
 Con el loop
 ```sql
 declare
-  v_nombre clientes.nombrecliente%type;
-  cursor clientes_sin_pagos is
-  select nombrecliente
-  from clientes;
+  v_nombre nelumbo.eba_demo_da_emp.ename%type;
+  cursor cursor1 is
+  select ename
+  from nelumbo.eba_demo_da_emp;
 begin
-  open clienes_sin_pagos;
+  open cursor1;
   loop
-    fetch clientes_sin_pagos into v_nombre;
-    exit when cliente_sin_pagos%notfound;
+    fetch cursor1 into v_nombre;
+    exit when cursor1%notfound;
 
     DBMS_OUTPUT.PUT_LINE(v_nombre);
-  end loop
-  close clienes_sin_pagos;
+  end loop;
+  close cursor1;
 end;
 ```
 
