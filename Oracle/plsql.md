@@ -85,8 +85,8 @@ END;
 ```
 
 Obteniendo 2 variables <br>
-nombre en v_nombre<br>
-gama en v_gama
+nombre en v_ename<br>
+cargo en v_job
 ```sql
 DECLARE
   v_empno   eba_demo_da_emp.empno%TYPE := &codigo; -- 7782
