@@ -1,0 +1,13 @@
+{
+  "name": "01-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "compilar": "tsc app.ts",
+    "compilar:siempre": "tsc -w"
+    
+  },
+  "author": "",
+  "license": "ISC"
+}
