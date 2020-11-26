@@ -22,6 +22,7 @@
   - [Gatsby](Gatsby/readme.md)
   - [Nextjs](Nextjs/readme.md)
   - [Svelte](Svelte/readme.md)
+  - [Angular](Angular/readme.md)
 
 ### Backend
   - [Express](Express/readme.md)
