@@ -3,6 +3,7 @@
 ## PL SQL (Procedural Language/Structured Query Language)
 
 ### Bloque Anónimo
+
 ```sql
 BEGIN
   dbms_output.put_line('Hola Mundo');
@@ -10,6 +11,7 @@ END;
 ```
 
 ### Declarar Variables
+
 ```sql
 DECLARE
   mi_numero NUMBER(8) := 5;
@@ -23,6 +25,7 @@ END;
 ```
 
 ### Ingresar Variables
+
 ```sql
 DECLARE
   mi_numero NUMBER(5) := &numero;
@@ -32,13 +35,14 @@ END;
 ```
 
 ### Ciclos
+
 #### While
+
 ```sql
 DECLARE
   i NUMBER(8) := 1;
 BEGIN
-  WHILE ( i <= 10 )
-  LOOP
+  WHILE ( i <= 10 ) LOOP
     dbms_output.put_line(i);
     i := i + 1;
   END LOOP;
@@ -46,6 +50,7 @@ END;
 ```
 
 #### For
+
 ```sql
 BEGIN
   FOR i IN 1..10 LOOP
@@ -55,6 +60,7 @@ END;
 ```
 
 #### Loop
+
 ```sql
 DECLARE
   i NUMBER(8) := 1;
@@ -67,79 +73,86 @@ BEGIN
 END;
 ```
 
-
 ### Select Into
-  Guarda nombre en v_ename
+
+Guarda nombre en v_nombre
+
 ```sql
 DECLARE
-  v_empno   eba_demo_da_emp.empno%TYPE := &codigo; -- 7782
-  v_ename   eba_demo_da_emp.ename%TYPE;
+  v_cedula   empleados.cedula%TYPE := &cedula; -- 1000
+  v_nombre   empleados.nombre%TYPE;
 BEGIN
-  SELECT ename
-  INTO v_ename
-  FROM eba_demo_da_emp
-  WHERE empno = v_empno;
+  SELECT nombre
+  INTO v_nombre
+  FROM empleados
+  WHERE cedula = v_cedula;
 
-  dbms_output.put_line('El nombre del empleado es: ' || v_ename);
+  dbms_output.put_line('El nombre del empleado es: ' || v_nombre);
 END;
 ```
 
 Obteniendo 2 variables <br>
-nombre en v_ename<br>
-cargo en v_job
+nombre en v_nombre<br>
+cargo en v_cargo
+
 ```sql
 DECLARE
-  v_empno   eba_demo_da_emp.empno%TYPE := &codigo; -- 7782
-  v_ename   eba_demo_da_emp.ename%TYPE;
-  v_job     eba_demo_da_emp.job%TYPE;
+  v_cedula   empleados.cedula%TYPE := &cedula; -- 1000
+  v_nombre   empleados.nombre%TYPE;
+  v_cargo    empleados.cargo%TYPE;
 BEGIN
-  SELECT ename,
-         job
+  SELECT nombre,
+         cargo
   INTO
-    v_ename,
-    v_job
-  FROM eba_demo_da_emp
-  WHERE empno = v_empno;
+    v_nombre,
+    v_cargo
+  FROM empleados
+  WHERE cedula = v_cedula;
 
-  dbms_output.put_line('El nombre del empleado es: ' || v_ename || ' y trabaja como: '||v_job);
+  dbms_output.put_line('El nombre del empleado es: '
+                       || v_nombre
+                       || ' y trabaja como: '
+                       || v_cargo);
 END;
 ```
 
 Obteniendo toda la fila en v_empleado
+
 ```sql
 DECLARE
-  v_empno      eba_demo_da_emp.empno%TYPE := &codigo;
-  v_empleado   eba_demo_da_emp%rowtype;
+  v_cedula     empleados.cedula%TYPE := &cedula;
+  v_empleado   empleados%rowtype;
 BEGIN
   SELECT *
   INTO v_empleado
-  FROM eba_demo_da_emp
-  WHERE empno = v_empno;
+  FROM empleados
+  WHERE cedula = v_cedula;
 
   dbms_output.put_line('El nombre del empleado es: '
-                       || v_empleado.ename
+                       || v_empleado.nombre
                        || ' y trabaja como: '
-                       || v_empleado.job);
+                       || v_empleado.cargo);
 
 END;
 ```
 
-
 ### Funciones y Procedimientos
+
 **Función** (Devuelve algo) <br>
 **Procedimiento** (No devuelve nada)
 
 #### Función
+
 ```sql
-CREATE OR REPLACE FUNCTION pagos_productos (
-  v_cliente clientes.codigo%TYPE
+CREATE OR REPLACE FUNCTION pago_cargo (
+  v_cargo empleados.cargo%TYPE
 ) RETURN NUMBER AS
-  v_total productos.precio%TYPE := 0;
+  v_total empleados.sueldo%TYPE := 0;
 BEGIN
-  SELECT SUM(cantidad)
+  SELECT SUM(sueldo)
   INTO v_total
-  FROM productos
-  WHERE codigocliente = v_cliente;
+  FROM empleados
+  WHERE cargo = v_cargo;
 
   RETURN v_total;
 END;
@@ -147,56 +160,54 @@ END;
 
 -- Llamando función
 DECLARE
-  v_cliente   clientes.codigocliente%TYPE := &codigo;
-  v_total     pagos.cantidad%TYPE;
+  v_total NUMBER(10);
 BEGIN
-  v_total := pagos_productos(v_cliente);
-  dbms_output.put_line('La suma de productos es ' || v_total);
+  v_total := pago_cargo('Programador');
+  dbms_output.put_line(v_total);
 END;
 /
 ```
 
-
 #### Proceso
+
 ```sql
-CREATE OR REPLACE PROCEDURE total_pedido (
-  v_codigopedido pedidos.codigopedido%TYPE
+CREATE OR REPLACE PROCEDURE pago_programador (
+  v_cedula empleados.cedula%TYPE
 ) AS
   v_total NUMBER(8) := 0;
 BEGIN
-  SELECT SUM(dp.cantidad * dp.preciounidad)
+  SELECT sueldo
   INTO v_total
-  FROM pedidos          p,
-       detallepedidos   dp
-  WHERE p.codigopedido = dp.codigopedido
-        AND p.codigopedido = v_codigopedido;
+  FROM empleados
+  WHERE cedula = v_cedula;
 
-  dbms_output.put_line('El pedido total es ' || v_total);
+  dbms_output.put_line('El programador gana: ' || v_total);
+EXCEPTION
+  WHEN no_data_found THEN
+    dbms_output.put_line('No se encontro o no es programador');
 END;
 /
 
 -- Llamando proceso
-DECLARE
-  v_codigopedido pedidos.codigopedido%TYPE := &codigo;
-BEGIN
-  total_pedido(v_codigopedido);
-END;
+begin
+  pago_programador('0666');
+end;
 /
 ```
 
-
 ### Excepciones y Controladores
+
 ```sql
 DECLARE
-  v_total   eba_demo_da_emp.sal%TYPE;
+  v_total   empleados.sueldo%TYPE;
   msg       VARCHAR2(100);
   err EXCEPTION;
 BEGIN
-  SELECT SUM(sal)
+  SELECT SUM(sueldo)
   INTO v_total
-  FROM eba_demo_da_emp;
+  FROM empleados;
 
-  IF v_total > 3000 THEN
+  IF v_total > 10000 THEN
     msg := 'Ha superado el límite salarial';
     RAISE err;
   END IF;
@@ -209,17 +220,16 @@ EXCEPTION
 END;
 ```
 
-
-
-
 ### Cursores
+
 Con el loop
+
 ```sql
 DECLARE
-  v_nombre eba_demo_da_emp.ename%TYPE;
+  v_nombre empleados.nombre%TYPE;
   CURSOR cursor1 IS
-  SELECT ename
-  FROM eba_demo_da_emp;
+  SELECT nombre
+  FROM empleados;
 
 BEGIN
   OPEN cursor1;
@@ -228,42 +238,200 @@ BEGIN
     EXIT WHEN cursor1%notfound;
     dbms_output.put_line(v_nombre);
   END LOOP;
+
   CLOSE cursor1;
 END;
 ```
 
 Con el for
+
 ```sql
 DECLARE
   CURSOR empleados IS
-  SELECT ename
-  FROM eba_demo_da_emp;
+  SELECT nombre
+  FROM empleados;
 
 BEGIN
   FOR emp IN empleados LOOP
-    dbms_output.put_line(emp.ename);
+    dbms_output.put_line(emp.nombre);
   END LOOP;
 END;
 ```
 
 ### Métodos de Cursores
+
 ```sql
 DECLARE
-  CURSOR empleados IS
-    SELECT ename
-    FROM eba_demo_da_emp;
-  emp empleados%rowtype;
+   CURSOR c1
+   IS
+     SELECT ''
+     FROM empleados;
+  c1Row c1%rowtype;
+
+  CURSOR c2
+   IS
+     SELECT ''
+     FROM empleados
+     where cedula = '-1';
+  c2Row c2%rowtype;
 BEGIN
-  OPEN empleados;
-    FETCH empleados INTO emp;
-    
-    IF empleados%notfound THEN
-      dbms_output.put_line('Esta vacio');
-    END IF;
-    
-    IF empleados%found THEN
-      dbms_output.put_line('Esta lleno');
-    END IF;  
-  CLOSE empleados;
+
+   open c1;
+   fetch c1 into c1Row;
+
+   if c1%notfound then
+      dbms_output.put_line('Cursor c1 Esta vacio');
+   end if;
+
+   if c1%found then
+      dbms_output.put_line('Cursor c1 Esta lleno');
+   end if;
+
+   close c1;
+
+
+   open c2;
+   fetch c2 into c2Row;
+
+   if c2%notfound then
+      dbms_output.put_line('Cursor c2 Esta vacio');
+   end if;
+
+   if c2%found then
+      dbms_output.put_line('Cursor c2 Esta lleno');
+   end if;
+
+   close c2;
+END;
+```
+
+## Formatear Fecha
+```sql
+DECLARE
+  v_fecha DATE := TO_DATE('31/12/20', 'dd/mm/yy');
+BEGIN
+  dbms_output.put_line(v_fecha);
+  dbms_output.put_line(to_char(v_fecha,'dd/mm/yyyy'));
+  dbms_output.put_line(to_char(v_fecha,'dd-mm-yyyy'));
+END;
+```
+
+
+## SYS_REFCURSOR
+### Con Procso
+```sql
+CREATE OR REPLACE PROCEDURE obtener_empleados_procedure (
+  v_cargo            IN    empleados.cargo%TYPE,
+  cursor_empleados   OUT   SYS_REFCURSOR
+) AS
+BEGIN
+  OPEN cursor_empleados FOR SELECT cedula,
+                                   nombre,
+                                   sueldo
+                            FROM empleados
+                            WHERE cargo = v_cargo
+                            ORDER BY cedula;
+
+END obtener_empleados_procedure;
+/
+
+DECLARE
+  l_cursor   SYS_REFCURSOR;
+  v_cedula   empleados.cedula%TYPE;
+  v_nombre   empleados.nombre%TYPE;
+  v_sueldo   empleados.sueldo%TYPE;
+BEGIN
+  obtener_empleados_procedure(v_cargo => 'Backend', cursor_empleados => l_cursor);
+  LOOP
+    FETCH l_cursor INTO
+      v_cedula,
+      v_nombre,
+      v_sueldo;
+    EXIT WHEN l_cursor%notfound;
+    dbms_output.put_line(v_cedula
+                         || ' | '
+                         || v_nombre
+                         || ' | '
+                         || v_sueldo);
+
+  END LOOP;
+
+  CLOSE l_cursor;
+END;
+/
+```
+
+
+### Con Function
+```sql
+CREATE OR REPLACE FUNCTION obtener_empleados_function (
+  v_cargo IN empleados.cargo%TYPE
+) RETURN SYS_REFCURSOR AS
+  cursor_empleados SYS_REFCURSOR;
+BEGIN
+  OPEN cursor_empleados FOR SELECT cedula,
+                                   nombre,
+                                   cargo,
+                                   sueldo
+                            FROM empleados
+                            WHERE cargo = v_cargo;
+
+  RETURN cursor_empleados;
+END;
+/
+
+DECLARE
+  cursor_empleados   SYS_REFCURSOR;
+  cedula             empleados.cedula%TYPE;
+  nombre             empleados.nombre%TYPE;
+  cargo              empleados.cargo%TYPE;
+  sueldo             empleados.sueldo%TYPE;
+BEGIN
+   -- get the ref cursor from function
+  cursor_empleados := obtener_empleados_function('Backend'); 
+   
+   -- process each employee
+  LOOP
+    FETCH cursor_empleados INTO
+      cedula,
+      nombre,
+      cargo,
+      sueldo;
+    EXIT WHEN cursor_empleados%notfound;
+    dbms_output.put_line(cedula
+                         || ' '
+                         || nombre
+                         || ' - '
+                         || cargo
+                         || ' - '
+                         || sueldo);
+
+  END LOOP;
+   -- close the cursor
+
+  CLOSE cursor_empleados;
+END;
+/
+```
+
+### Split
+```sql
+DECLARE
+  CURSOR lista IS
+  SELECT regexp_substr('A1,A2,A4', '[^,]+', 1, level) item
+  FROM dual CONNECT BY
+    regexp_substr('A1,A2,A4', '[^,]+', 1, level) IS NOT NULL;
+
+  listarow lista%rowtype;
+BEGIN
+  OPEN lista;
+  -- Item 1
+  FETCH lista INTO listarow;
+  dbms_output.put_line(listarow.item);
+
+  -- Item 2
+  FETCH lista INTO listarow;
+  dbms_output.put_line(listarow.item);
+  CLOSE lista;
 END;
 ```

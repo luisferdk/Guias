@@ -29,5 +29,5 @@
   - [PassportJS](PassportJS/readme.md)
 
 ### Base de Datos
-  - [Oracle](Oracle/plsql.md)
+  - [Oracle](Oracle/readme.md)
   - [Mongodb](Mongodb/readme.md)
