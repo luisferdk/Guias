@@ -66,7 +66,7 @@ Se usa para insertar en la bitácora de procesos
 PACK_APEX_ALEA1.PL_AUDIT('80',TO_CHAR(V_UNI), TO_CHAR(V_ANNO), TO_CHAR(V_NMORDCHE),'','',''); 
 ```
 
-##
+## pl_val
 Se usa para cargar las descripciones
 ```sql
 PACK_APEX_ALEA1.PL_VAL('TPERPAG', TO_CHAR(:P312_CDPERPAG), :P312_DSPERPAG, 'VNS');
