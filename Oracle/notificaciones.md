@@ -82,4 +82,8 @@ if (error == 0) {
   /* Acción Dinámica cuando no hay error */
   apex.event.trigger(document, 'customDA', [{ customAttribute: '1' }]);
 }
+
+
+//Detener acciones dinámicas
+apex.da.cancelEvent.call(this);
 ```
