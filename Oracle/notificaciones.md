@@ -4,23 +4,20 @@
 
 ```sql
 -- Exitoso
-apex_application.g_print_success_message := 'Siniestro Anulado';
+APEX_APPLICATION.G_PRINT_SUCCESS_MESSAGE := 'Siniestro Anulado';
 
 -- Error de Pagina
-apex_error.add_error(
-  msg, p_display_location => apex_error.c_inline_in_notification);
+APEX_ERROR.ADD_ERROR(MSG, P_DISPLAY_LOCATION => APEX_ERROR.C_INLINE_IN_NOTIFICATION);
 
 -- Error Item y Pagina
-apex_error.add_error(
-  p_message => 'Error',
-  p_display_location => apex_error.c_inline_with_field_and_notif,
-  p_page_item_name => 'P5_CUSTOMER_ID');
+APEX_ERROR.ADD_ERROR(P_MESSAGE => 'Error',
+  P_DISPLAY_LOCATION => APEX_ERROR.C_INLINE_WITH_FIELD_AND_NOTIF,
+  P_PAGE_ITEM_NAME => 'P5_CUSTOMER_ID');
 
 -- Error Item
-apex_error.add_error(
-  p_message => 'Error',
-  p_display_location => apex_error.c_inline_with_field,
-  p_page_item_name => 'P5_CUSTOMER_ID');
+APEX_ERROR.ADD_ERROR(P_MESSAGE => 'Error',
+  P_DISPLAY_LOCATION => APEX_ERROR.C_INLINE_WITH_FIELD,
+  P_PAGE_ITEM_NAME => 'P5_CUSTOMER_ID');
 ```
 
 ## Desde Acciones Dinámicas con Javascript
