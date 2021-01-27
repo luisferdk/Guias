@@ -33,6 +33,9 @@ apex.message.showErrors([
     message: 'This field is required',
     unsafe: false,
   },
+]);
+
+apex.message.showErrors([
   // Mostrar Error en Página
   {
     type: apex.message.TYPE.ERROR,
@@ -40,6 +43,9 @@ apex.message.showErrors([
     message: 'Page level error',
     unsafe: false,
   },
+]);
+
+apex.message.showErrors([
   // Mostrar Error en Item
   {
     type: apex.message.TYPE.ERROR,
@@ -62,25 +68,22 @@ let vector = ['P1_CAMPO1', 'P1_CAMPO2', 'P1_CAMPO3', 'P1_CAMPO4', 'P1_CAMPO5'];
 
 for (let i in vector) {
   if ($v(vector[i]).length == 0) {
+    error = 1;
     apex.message.showErrors([
       {
         type: apex.message.TYPE.ERROR,
         location: ['inline'],
         pageItem: vector[i],
-        message: 'Value is required!',
+        message: 'Requerido',
         unsafe: false,
       },
     ]);
-    error = 1;
   }
 }
-
-if (error == 0) {
-  /* Acción Dinámica cuando no hay error */
-  apex.event.trigger(document, 'customDA', [{ customAttribute: '1' }]);
+if (error == 1) {
+  //Detener acciones dinámicas
+  apex.da.cancelEvent.call(this);
 }
 
 
-//Detener acciones dinámicas
-apex.da.cancelEvent.call(this);
 ```
