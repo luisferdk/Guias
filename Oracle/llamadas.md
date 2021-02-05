@@ -6,38 +6,38 @@ Lo que cambia es el comando.
 La manera de ejecutar es con este proceso
 `pack_unixutil.f_execute_command(comando)`
 ```sql
-DECLARE
-  comando     VARCHAR2(500);
-  resultado   VARCHAR2(500);
-  v_param1    VARCHAR2(10) := '2007';
-  v_param2    VARCHAR2(10) := '11';
-  v_param3    VARCHAR2(10) := '1';
-  v_param4    VARCHAR2(10) := '1';
-  v_param5    VARCHAR2(10) := '901';
-  v_param6    VARCHAR2(10) := '24759';
-BEGIN
-  comando := 'aleactrb'
+declare
+  COMANDO     varchar2(500);
+  RESULTADO   varchar2(500);
+  V_PARAM1    varchar2(10) := '2007';
+  V_PARAM2    varchar2(10) := '11';
+  V_PARAM3    varchar2(10) := '1';
+  V_PARAM4    varchar2(10) := '1';
+  V_PARAM5    varchar2(10) := '901';
+  V_PARAM6    varchar2(10) := '24759';
+begin
+  COMANDO := 'aleactrb'
              || ' '
-             || to_char(v_param1)
+             || TO_CHAR(V_PARAM1)
              || ' '
-             || to_char(v_param2)
+             || TO_CHAR(V_PARAM2)
              || ' '
-             || to_char(v_param3)
+             || TO_CHAR(V_PARAM3)
              || ' '
-             || to_char(v_param4)
+             || TO_CHAR(V_PARAM4)
              || ' '
-             || to_char(v_param5)
+             || TO_CHAR(V_PARAM5)
              || ' '
-             || to_char(v_param6);
+             || TO_CHAR(V_PARAM6);
 
-  comando := '/'
-             || f_dabase_owner
+  COMANDO := '/'
+             || F_DABASE_OWNER
              || '/cmd/'
-             || comando;
-  resultado := pack_unixutil.f_execute_command(comando);
-  dbms_output.put_line(comando);
+             || COMANDO;
+  RESULTADO := PACK_UNIXUTIL.F_EXECUTE_COMMAND(COMANDO);
+  DBMS_OUTPUT.PUT_LINE(COMANDO);
   -- Imprime /alead11g/cmd/aleactrb 2007 11 1 1 901 24759
-  dbms_output.put_line(resultado);
+  DBMS_OUTPUT.PUT_LINE(RESULTADO);
   /* Report result: Execing: /usr/bin/sh-c/alead11g/cmd/aleactrb 2007 11 1 1 901 24759  ** 
   outputGobbler: Nothing to report. ;
   errorGobbler: Nothing to report. ;
@@ -45,5 +45,17 @@ BEGIN
   /* Si status es 0 o 1 esta bien
     Si status es 127 el comando no existe
   */
-END;
+end;
+```
+
+## pl_audit
+Se usa para insertar en la bitácora de procesos
+```sql
+PACK_APEX_ALEA1.PL_AUDIT('80',TO_CHAR(V_UNI), TO_CHAR(V_ANNO), TO_CHAR(V_NMORDCHE),'','',''); 
+```
+
+## pl_val
+Se usa para cargar las descripciones
+```sql
+PACK_APEX_ALEA1.PL_VAL('TPERPAG', TO_CHAR(:P312_CDPERPAG), :P312_DSPERPAG, 'VNS');
 ```

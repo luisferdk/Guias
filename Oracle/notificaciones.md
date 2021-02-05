@@ -4,23 +4,20 @@
 
 ```sql
 -- Exitoso
-apex_application.g_print_success_message := 'Siniestro Anulado';
+APEX_APPLICATION.G_PRINT_SUCCESS_MESSAGE := 'Siniestro Anulado';
 
 -- Error de Pagina
-apex_error.add_error(
-  msg, p_display_location => apex_error.c_inline_in_notification);
+APEX_ERROR.ADD_ERROR(MSG, P_DISPLAY_LOCATION => APEX_ERROR.C_INLINE_IN_NOTIFICATION);
 
 -- Error Item y Pagina
-apex_error.add_error(
-  p_message => 'Error',
-  p_display_location => apex_error.c_inline_with_field_and_notif,
-  p_page_item_name => 'P5_CUSTOMER_ID');
+APEX_ERROR.ADD_ERROR(P_MESSAGE => 'Error',
+  P_DISPLAY_LOCATION => APEX_ERROR.C_INLINE_WITH_FIELD_AND_NOTIF,
+  P_PAGE_ITEM_NAME => 'P5_CUSTOMER_ID');
 
 -- Error Item
-apex_error.add_error(
-  p_message => 'Error',
-  p_display_location => apex_error.c_inline_with_field,
-  p_page_item_name => 'P5_CUSTOMER_ID');
+APEX_ERROR.ADD_ERROR(P_MESSAGE => 'Error',
+  P_DISPLAY_LOCATION => APEX_ERROR.C_INLINE_WITH_FIELD,
+  P_PAGE_ITEM_NAME => 'P5_CUSTOMER_ID');
 ```
 
 ## Desde Acciones Dinámicas con Javascript
@@ -36,6 +33,9 @@ apex.message.showErrors([
     message: 'This field is required',
     unsafe: false,
   },
+]);
+
+apex.message.showErrors([
   // Mostrar Error en Página
   {
     type: apex.message.TYPE.ERROR,
@@ -43,6 +43,9 @@ apex.message.showErrors([
     message: 'Page level error',
     unsafe: false,
   },
+]);
+
+apex.message.showErrors([
   // Mostrar Error en Item
   {
     type: apex.message.TYPE.ERROR,
@@ -65,21 +68,22 @@ let vector = ['P1_CAMPO1', 'P1_CAMPO2', 'P1_CAMPO3', 'P1_CAMPO4', 'P1_CAMPO5'];
 
 for (let i in vector) {
   if ($v(vector[i]).length == 0) {
+    error = 1;
     apex.message.showErrors([
       {
         type: apex.message.TYPE.ERROR,
         location: ['inline'],
         pageItem: vector[i],
-        message: 'Value is required!',
+        message: 'Requerido',
         unsafe: false,
       },
     ]);
-    error = 1;
   }
 }
-
-if (error == 0) {
-  /* Acción Dinámica cuando no hay error */
-  apex.event.trigger(document, 'customDA', [{ customAttribute: '1' }]);
+if (error == 1) {
+  //Detener acciones dinámicas
+  apex.da.cancelEvent.call(this);
 }
+
+
 ```

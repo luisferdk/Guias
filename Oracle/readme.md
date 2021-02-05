@@ -9,11 +9,12 @@
 6. [Llamadas](llamadas.md)
 7. [Consulta de Interes](consultaInteres.md)
 8. [Interactive Grid](interactiveGrid.md)
+9. [Descargas](descargas.md)
 
 
 `Nota:` La Base de datos de todos los ejemplos esta aquí [db.sql](db.sql)
 
 
-Si tienen alguna duda agregarlas aquí [Dudas](dudas.md) y enviar un pull request
+Si tienen alguna duda agregarlas aquí [dudas](dudas.md) y enviar un pull request
 
 Sigueme: [@luisferdk](https://instagram.com/luisferdk) 🚀

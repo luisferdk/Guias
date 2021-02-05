@@ -15,8 +15,8 @@ git config --global alias.m 'commit -m'
 git config --global alias.am 'commit -am'
 git config --global alias.s 'status'
 git config --global alias.l 'log --oneline'
-git config --global alias.ps 'push origin master'
-git config --global alias.pl 'pull origin master'
+git config --global alias.ps 'push origin main'
+git config --global alias.pl 'pull origin main'
 git config --global alias.psr 'push origin'
 git config --global alias.plr 'pull origin'
 git config --global alias.nicelog 'log --oneline --graph --all'
@@ -41,7 +41,7 @@ git clone (repositorio) #Sirve para clonar un proyecto
 git commit -m "mensaje" #Guarda un commit
 git commit -am "mensaje" #Es la union de git add -A y git commit -m "mensaje"
 git checkout (commit) #Se ubica en un commit que yo desee sin eliminar los demas
-git checkout master #(master en este caso)
+git checkout main #(main en este caso)
 git commit --amend #para hacer cambios en la descripcion de algun commit
 ```
 
@@ -91,11 +91,11 @@ git remote remove origin #elimina la conexion con el repositorio remoto
 ```bash
 #OJO estos tres comandos se usan mucho cuando se trabaja de manera grupal y en tiempo real
 
-git push origin master #para envia los cambios al repositorio remoto (en este caso master pero puede ser cualquier otra rama)
+git push origin main #para envia los cambios al repositorio remoto (en este caso main pero puede ser cualquier otra rama)
 
-git fetch origin #(baja los cambios del repositorio remoto a la rama oculta origin/master)
+git fetch origin #(baja los cambios del repositorio remoto a la rama oculta origin/main)
 
-git merge origin/master #(fusiona la rama donde estoy con la rama oculta origin/master)
+git merge origin/main #(fusiona la rama donde estoy con la rama oculta origin/main)
 ```
 
 ## Ramas
@@ -113,7 +113,7 @@ git checkout -b (nueva rama) #Crea la rama y se ubica en ella
 //Me ubico en la rama que deseo agregar la otra rama
 
 ```bash
-git checkout master
+git checkout main
 git merge (rama que deseo absorver)
 ```
 
@@ -127,14 +127,14 @@ Cuando hay errores al subir mi repositorio local al remoto con el comando push h
 
 ```bash
 git fetch origin
-git merge origin/master
+git merge origin/main
 
-git pull origin master #(es la union de git fetch y git merge)
+git pull origin main #(es la union de git fetch y git merge)
 ```
 
 y luego arreglamos el conflicto en la linea de comandos me dice donde esta el error
 HEAD es el ultimo commit local
-origin/master es el cambio que descargue
+origin/main es el cambio que descargue
 
 ### Tags
 
@@ -190,7 +190,7 @@ Se usan para ejecutar una serie de comandos despues de ejecutar otro
 ejemplo:
 despues de un git commit -m "mensaje"
 me ejecute automáticamente
-el git push origin master
+el git push origin main
 otros comandos
 
 para hacerlo me dirijo hacia la carpeta .git/hooks
@@ -198,7 +198,7 @@ creo un archivo ejemplo:
 touch post-commit
 nano post-commit o vim post-commit //para cerrar vim presiono Esc :q
 #!/bin/sh //reconozca comandos
-git push origin master
+git push origin main
 
 ## Clave SSH
 

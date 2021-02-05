@@ -99,5 +99,5 @@ END PACK_APEX_PACKAGE;
   SELECT text
   FROM all_source
   WHERE name = UPPER('F_PAGOCOMISION')
-    AND type in ('FUNCTION');
+    AND type in IN ('PACKAGE','PACKAGE BODY', 'PROCEDURE', 'FUNCTION', 'SYNONYM');
 ```
