@@ -807,5 +807,7 @@ prompt_dir() {
 
 ## AWK
 ```bash
-ls | awk {'print $0'}
+ls -la | awk {'print $0'} # Imprime todo
+ls -la | awk {'print $1'} # Imprime la primera columna
+ls -la | awk {'print $2'} # Imrpime la segunda columna
 ```
