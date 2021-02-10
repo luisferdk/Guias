@@ -749,8 +749,8 @@ De este modo cuando ejecutamos `ejemplo.php` se ejecuta automáticamente y ya no
 
 ## Error Disco
 ```bash
-sudo ntfsfix /dev/sda4
-sudo umount /dev/sda5 && sudo ntfsfix /dev/sda5
+sudo ntfsfix /dev/sda6
+sudo umount /dev/sda6 && sudo ntfsfix /dev/sda6
 ```
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
