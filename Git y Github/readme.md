@@ -1,5 +1,10 @@
 ﻿# Git
 
+## Guias
+
+- [Git y Github](guia.pdf)
+- [Como escribir un Commit](commit.pdf)
+
 ## Configuración
 
 _Lista de Comando para configurar git_
