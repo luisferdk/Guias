@@ -749,8 +749,8 @@ De este modo cuando ejecutamos `ejemplo.php` se ejecuta automáticamente y ya no
 
 ## Error Disco
 ```bash
-sudo ntfsfix /dev/sda4
-sudo umount /dev/sda5 && sudo ntfsfix /dev/sda5
+sudo ntfsfix /dev/sda6
+sudo umount /dev/sda6 && sudo ntfsfix /dev/sda6
 ```
 <div align="right">
   <small><a href="#tabla-de-contenido">🡡 volver al inicio</a></small>
@@ -807,5 +807,7 @@ prompt_dir() {
 
 ## AWK
 ```bash
-ls | awk {'print $0'}
+ls -la | awk {'print $0'} # Imprime todo
+ls -la | awk {'print $1'} # Imprime la primera columna
+ls -la | awk {'print $2'} # Imrpime la segunda columna
 ```
