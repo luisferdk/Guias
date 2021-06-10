@@ -20,3 +20,8 @@
 `set number` # Muestra los numeros de las lineas
 `set tabstop=4` #Cambiar el tab a 4 espacios
 ```
+
+## Instalar Theme Monokai
+Put `monokai.vim` file in your `~/.vim/colors/` directory and add the following line to your `~/.vimrc`:
+    syntax enable
+    colorscheme monokai
