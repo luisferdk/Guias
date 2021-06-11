@@ -7,6 +7,7 @@ filetype off
 " TODO: Load plugins here (pathogen or vundle)
 
 " Turn on syntax highlighting
+syntax on
 
 " For plugins to load correctly
 filetype plugin indent on
@@ -89,5 +90,4 @@ set listchars=tab:▸\ ,eol:¬
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
-syntax on
 colorscheme monokai
