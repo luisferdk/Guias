@@ -5,7 +5,7 @@ h, j ,k, l	( ←h  j↓ k↑ l→ )
 w, b	( ←b w→ ) Por palabra
 0, $	( ←0 $→ ) Por linea
 ^   Para movernos hasta el primer carácter no vacío de la linea
-gg, G	G↓ gg↑ princio y final del archivo
+gg, G	G↓ gg↑ principio y final del archivo
 d	Este comando se utiliza después de usar uno de los anteriores, elimina desde la posicion de nuestro cursor hasta el desplazamiento indicado
 dd	Elimina toda la linea sobre la que se encuentre el cursor
 y,p	y para copiar el texto hasta el desplazamiento que le indiquemos con los comandos anteriores, p para pegar
