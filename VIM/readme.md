@@ -1,24 +1,15 @@
 # VIM
 ## Comandos Básicos
 ```bash
-`i` #Sirve para empezar a editar o insertar texto
-`esc` #Sirve para ingresar comandos
-`:q` #Salir sin guardar cambios
-`:q!` #Salir forzado sin guardar cambios
-`:w` #Guardar los cambios
-`:wq` #Guardar y salir
-`dd` #Borra la linea actual
-`u` #Deshace lo que hemos escrito
-`:redo o ctrl + r` #Devuelve los cambios
-`/` # Para buscar ejemplo: /luis y enter con n busca la siguente con N la anterior
-`gg` ## Va al principio del archivo
-`G` # Se ubica al final del archivo
-`10G` #Ubica el cursor en la linea numero 10
-`yy o Y` # Copia la Linea actual
-`3yy o 3Y` # Copia desde la linea actual hasta la 3era
-`p` # Pega la linea
-`set number` # Muestra los numeros de las lineas
-`set tabstop=4` #Cambiar el tab a 4 espacios
+h, j ,k, l	Para desplazarnos, en lugar de movernos con las flechas del teclado, nos movemos con estas letras ( h: ← j: ↓ k: ↑ l: → )
+w, b	La w para desplazar el cursor una palabra hacia adelante y la b para desplazarnos una palabra hacia atrás
+0, $	El 0 sirve para desplazarnos hacia el inicio de la linea en la que nos encontremos y $ para movernos al final
+^	Para movernos hasta el primer carácter no vacío de la linea
+gg, G	gg para movernos al principio del documento y G para movernos al final
+d	Este comando se utiliza después de usar uno de los anteriores, elimina desde la posicion de nuestro cursor hasta el desplazamiento indicado
+dd	Elimina toda la linea sobre la que se encuentre el cursor
+y,p	y para copiar el texto hasta el desplazamiento que le indiquemos con los comandos anteriores, p para pegar
+. (punto)	Con este comando repetiremos el comando ejecutado anteriormente
 ```
 
 ## Instalar Theme Monokai
